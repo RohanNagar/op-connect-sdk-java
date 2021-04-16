@@ -1,5 +1,6 @@
 package com.sanctionco.connect;
 
+import com.sanctionco.connect.model.APIRequest;
 import com.sanctionco.connect.model.Item;
 import com.sanctionco.connect.model.Patch;
 import com.sanctionco.connect.model.Vault;
@@ -51,6 +52,16 @@ public interface OPConnectClient {
   @DELETE("/v1/vaults/{vaultId}/items/{itemId}")
   CompletableFuture<Void> deleteItem(@Path("vaultId") String vaultUUID,
                                      @Path("itemId") String itemUUID);
+
+  @GET("/v1/activity")
+  CompletableFuture<List<APIRequest>> listAPIActivity();
+
+  @GET("/v1/activity")
+  CompletableFuture<List<APIRequest>> listAPIActivity(@Query("limit") Integer limit);
+
+  @GET("/v1/activity")
+  CompletableFuture<List<APIRequest>> listAPIActivity(@Query("limit") Integer limit,
+                                                @Query("offset") Integer offset);
 
   default OPConnectVaultClient getVaultClient(String vaultUUID) {
     return new OPConnectVaultClient(this, vaultUUID);

@@ -1,5 +1,6 @@
 package com.sanctionco.connect;
 
+import com.sanctionco.connect.model.APIRequest;
 import com.sanctionco.connect.model.Category;
 import com.sanctionco.connect.model.Field;
 import com.sanctionco.connect.model.Item;
@@ -57,6 +58,9 @@ public class Test {
     System.out.println("Deleting");
     vaultClient.deleteItem(replaced.getId()).join();
     System.out.println("Done deleting");
+
+    List<APIRequest> requests = client.listAPIActivity().join();
+    System.out.println(requests);
 
     System.exit(0);
   }
