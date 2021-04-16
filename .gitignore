@@ -1,0 +1,33 @@
+# IntelliJ Files
+.idea/
+*.ipr
+*.iws
+*.iml
+
+# Eclipse Files
+.classpath
+.project
+.settings/
+
+# Build outputs
+target/
+_build/
+
+# Vagrant outputs
+.vagrant
+
+# OS hidden files
+.DS_Store
+
+# Temporary Maven files
+dependency-reduced-pom.xml
+
+# Log files
+*.log
+
+# Node.js dependency directories
+node_modules/
+out/
+
+# Credentials
+*credentials.json
