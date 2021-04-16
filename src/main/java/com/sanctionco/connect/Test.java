@@ -29,6 +29,9 @@ public class Test {
     Item foundItem = client.getItem(vault.getId(), items.get(0).getId()).join();
     System.out.println(foundItem);
 
+    Item createdItem = Item.builder().withTitle("Test Hello World").build();
+    System.out.println(createdItem);
+
     System.exit(0);
   }
 }
