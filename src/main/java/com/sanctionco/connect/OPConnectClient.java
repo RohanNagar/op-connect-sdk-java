@@ -38,4 +38,8 @@ public interface OPConnectClient {
   @DELETE("/v1/vaults/{vaultId}/items/{itemId}")
   CompletableFuture<Void> deleteItem(@Path("vaultId") String vaultUUID,
                                      @Path("itemId") String itemUUID);
+
+  default OPConnectVaultClient getVaultClient(String vaultUUID) {
+    return new OPConnectVaultClient(this, vaultUUID);
+  }
 }

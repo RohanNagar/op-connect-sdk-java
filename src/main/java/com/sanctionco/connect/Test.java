@@ -20,27 +20,29 @@ public class Test {
 
     Vault vault = client.getVault(vaults.get(0).getId()).join();
 
-    List<Item> items = client.listItems(vaults.get(0).getId()).join();
+    OPConnectVaultClient vaultClient = client.getVaultClient(vault.getId());
+
+    List<Item> items = vaultClient.listItems().join();
 
     System.out.println(items.size());
     System.out.println(items);
 
-    items = client.listItems(vaults.get(0).getId(), "title co \"Hello\"").join();
+    items = vaultClient.listItems("title co \"Hello\"").join();
 
     System.out.println(items.size());
     System.out.println(items);
 
-    Item foundItem = client.getItem(vault.getId(), items.get(0).getId()).join();
+    Item foundItem = vaultClient.getItem(items.get(0).getId()).join();
     System.out.println(foundItem);
 
     Item createdItem = Item.builder().withTitle("Test Hello World").withCategory(Category.LOGIN).withVault(vault).withFields(Collections.singletonList(new Field(null, Purpose.USERNAME, null, null, "myname", false, null, null, null))).build();
     System.out.println("Creating: " + createdItem);
 
-    Item created = client.createItem(vault.getId(), createdItem).join();
+    Item created = vaultClient.createItem(createdItem).join();
     System.out.println(created);
     Thread.sleep(1000L);
     System.out.println("Deleting");
-    client.deleteItem(vault.getId(), created.getId()).join();
+    vaultClient.deleteItem(created.getId()).join();
     System.out.println("Done deleting");
 
     System.exit(0);
