@@ -44,8 +44,7 @@ public class Test {
         .withCategory(Category.LOGIN)
         .withVault(vault)
         .withFields(Collections.singletonList(
-            new Field(null, Purpose.USERNAME, null, null, "myname",
-                false, null, null, null)))
+            Field.builder().withPurpose(Purpose.USERNAME).withValue("myname").build()))
         .build();
     System.out.println("Creating: " + createdItem);
 
@@ -63,8 +62,7 @@ public class Test {
         .withCategory(Category.LOGIN)
         .withVault(vault)
         .withFields(Collections.singletonList(
-            new Field(null, Purpose.USERNAME, null, null, "myreplacedname",
-                false, null, null, null)))
+            Field.builder().withPurpose(Purpose.USERNAME).withValue("myreplacedname").build()))
         .build();
     Item replaced = vaultClient.replaceItem(patched.getId(), replacingItem).join();
     System.out.println("Replaced: " + replaced);

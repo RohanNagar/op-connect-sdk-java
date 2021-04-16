@@ -1,11 +1,11 @@
 package com.sanctionco.opconnect.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Objects;
 import java.util.StringJoiner;
 
+@JsonDeserialize(builder = Field.Builder.class)
 public class Field {
   private final String id;
   private final Purpose purpose;
@@ -17,16 +17,15 @@ public class Field {
   private final Section section;
   private final Double entropy;
 
-  @JsonCreator
-  public Field(@JsonProperty("id") String id,
-               @JsonProperty("purpose") Purpose purpose,
-               @JsonProperty("type") Type type,
-               @JsonProperty("label") String label,
-               @JsonProperty("value") String value,
-               @JsonProperty("generate") Boolean generate,
-               @JsonProperty("recipe") GeneratorRecipe recipe,
-               @JsonProperty("section") Section section,
-               @JsonProperty("entropy") Double entropy) {
+  private Field(String id,
+               Purpose purpose,
+               Type type,
+               String label,
+               String value,
+               Boolean generate,
+               GeneratorRecipe recipe,
+               Section section,
+               Double entropy) {
     this.id = id;
     this.purpose = purpose;
     this.type = type;
@@ -100,5 +99,70 @@ public class Field {
         .add("section=" + section)
         .add("entropy=" + entropy)
         .toString();
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static class Builder {
+    private String id;
+    private Purpose purpose;
+    private Type type;
+    private String label;
+    private String value;
+    private Boolean generate;
+    private GeneratorRecipe recipe;
+    private Section section;
+    private Double entropy;
+
+    public Builder withId(String id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder withPurpose(Purpose purpose) {
+      this.purpose = purpose;
+      return this;
+    }
+
+    public Builder withType(Type type) {
+      this.type = type;
+      return this;
+    }
+
+    public Builder withLabel(String label) {
+      this.label = label;
+      return this;
+    }
+
+    public Builder withValue(String value) {
+      this.value = value;
+      return this;
+    }
+
+    public Builder setGenerate(Boolean generate) {
+      this.generate = generate;
+      return this;
+    }
+
+    public Builder withRecipe(GeneratorRecipe recipe) {
+      this.recipe = recipe;
+      return this;
+    }
+
+    public Builder withSection(Section section) {
+      this.section = section;
+      return this;
+    }
+
+    public Builder withEntropy(Double entropy) {
+      this.entropy = entropy;
+      return this;
+    }
+
+    public Field build() {
+      return new Field(id, purpose, type, label, value, generate, recipe, section, entropy);
+    }
   }
 }
