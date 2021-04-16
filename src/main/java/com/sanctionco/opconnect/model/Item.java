@@ -3,6 +3,7 @@ package com.sanctionco.opconnect.model;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -152,16 +153,16 @@ public class Item {
     private String title;
     private VaultId vaultId;
     private Category category;
-    private List<URL> urls;
+    private List<URL> urls = new ArrayList<>();
     private Boolean favorite;
-    private List<String> tags;
+    private List<String> tags = new ArrayList<>();
     private Integer version;
     private Boolean trashed;
     private Instant createdAt;
     private Instant updatedAt;
     private String lastEditedBy;
-    private List<Section> sections;
-    private List<Field> fields;
+    private List<Section> sections = new ArrayList<>();
+    private List<Field> fields = new ArrayList<>();
 
     public Builder fromItem(Item item) {
       this.id = item.id;
@@ -184,97 +185,101 @@ public class Item {
 
     public Builder withId(String id) {
       this.id = id;
-
       return this;
     }
 
     public Builder withTitle(String title) {
       this.title = title;
-
       return this;
     }
 
     public Builder withVault(Vault vault) {
       this.vaultId = new VaultId(vault.getId());
-
       return this;
     }
 
     public Builder withVaultId(VaultId vaultId) {
       this.vaultId = vaultId;
-
       return this;
     }
 
     public Builder withVaultId(String id) {
       this.vaultId = new VaultId(id);
-
       return this;
     }
 
     public Builder withCategory(Category category) {
       this.category = category;
-
       return this;
     }
 
     public Builder withUrls(List<URL> urls) {
-      this.urls = urls;
+      this.urls.addAll(urls);
+      return this;
+    }
 
+    public Builder withUrl(URL url) {
+      this.urls.add(url);
       return this;
     }
 
     public Builder withFavorite(Boolean favorite) {
       this.favorite = favorite;
-
       return this;
     }
 
     public Builder withTags(List<String> tags) {
-      this.tags = tags;
+      this.tags.addAll(tags);
+      return this;
+    }
 
+    public Builder withTag(String tag) {
+      this.tags.add(tag);
       return this;
     }
 
     public Builder withVersion(Integer version) {
       this.version = version;
-
       return this;
     }
 
     public Builder withTrashed(Boolean trashed) {
       this.trashed = trashed;
-
       return this;
     }
 
     public Builder withCreatedAt(Instant createdAt) {
       this.createdAt = createdAt;
-
       return this;
     }
 
     public Builder withUpdatedAt(Instant updatedAt) {
       this.updatedAt = updatedAt;
-
       return this;
     }
 
     public Builder withLastEditedBy(String lastEditedBy) {
       this.lastEditedBy = lastEditedBy;
-
       return this;
     }
 
     public Builder withSections(List<Section> sections) {
-      this.sections = sections;
+      this.sections.addAll(sections);
+      return this;
+    }
 
+    public Builder withSection(Section section) {
+      this.sections.add(section);
       return this;
     }
 
     public Builder withFields(List<Field> fields) {
-      this.fields = fields;
+      this.fields.addAll(fields);
+      return this;
+    }
 
+    public Builder withField(Field field) {
+      this.fields.add(field);
       return this;
     }
 

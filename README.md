@@ -23,7 +23,7 @@ Add this library as a dependency in your `pom.xml`:
 <dependency>
   <groupId>com.sanctionco.opconnect</groupId>
   <artifactId>opconnect-java</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
 </dependency>
 ```
 
@@ -80,32 +80,24 @@ client.listItems("VAULTID").whenComplete((items, throwable) -> {
 ### Add an item
 
 ```java
-List<Field> fields = new ArrayList<>();
-
-fields.add(Field.username("myemail@test.com").build());
-fields.add(Field.password("testpassword").build());
-
 Item itemToCreate = Item.builder()
     .withTitle("My Login Item")
     .withCategory(Category.LOGIN)
-    .withVault("VAULTID")
-    .withFields(fields)
+    .withVaultId("VAULTID")
+    .withField(Field.username("myemail@test.com").build())
+    .withField(Field.password("testpassword").build())
     .build();
     
 Item createdItem = client.createItem("VAULTID", itemToCreate).join();
 ```
 
 ```java
-List<Field> fields = new ArrayList<>();
-
-fields.add(Field.username("myemail@test.com").build());
-fields.add(Field.generatedPassword().build());
-
 Item itemToCreate = Item.builder()
     .withTitle("My Login Item")
     .withCategory(Category.LOGIN)
-    .withVault("VAULTID")
-    .withFields(fields)
+    .withVaultId("VAULTID")
+    .withField(Field.username("myemail@test.com").build())
+    .withField(Field.generatedPassword().build())
     .build();
     
 client.createItem("VAULTID", itemToCreate).whenComplete((item, throwable) -> {

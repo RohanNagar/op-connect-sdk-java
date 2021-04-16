@@ -57,7 +57,7 @@ public class TestProgram {
     Item createdItem = Item.builder().withTitle("Test Hello World")
         .withCategory(Category.LOGIN)
         .withVault(vault)
-        .withFields(Collections.singletonList(Field.username("myname").build()))
+        .withField(Field.username("myname").build())
         .build();
     System.out.println("Creating a new item: " + createdItem);
     Item created = vaultClient.createItem(createdItem).join();
@@ -75,7 +75,7 @@ public class TestProgram {
         .withId(patched.getId())
         .withCategory(Category.LOGIN)
         .withVault(vault)
-        .withFields(Collections.singletonList(Field.username("myreplacedname").build()))
+        .withField(Field.username("myreplacedname").build())
         .build();
     Item replaced = vaultClient.replaceItem(patched.getId(), replacingItem).join();
     System.out.println("Successfully replaced: " + replaced);
