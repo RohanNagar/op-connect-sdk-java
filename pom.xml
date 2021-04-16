@@ -111,6 +111,7 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${javadoc-plugin.version}</version>
             <configuration>
+              <source>${java.minimum.version}</source>
               <doclint>none</doclint>
               <quiet>true</quiet>
             </configuration>
