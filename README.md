@@ -38,16 +38,162 @@ OPConnectClient client = OPConnectClient.builder()
     .build();
 ```
 
-List available vaults (blocking):
+Below are examples of how to call each of the API methods,
+in both blocking and non-blocking form.
+
+### List vaults
 
 ```java
-Vault vault = client.listVaults().join();
+List<Vault> vaults = client.listVaults().join();
 ```
-
-List available vaults (asynchronously):
 
 ```java
 client.listVaults().whenComplete((vaults, throwable) -> {
-  // vaults variable contains the result
+  // vaults variable contains the list of vaults
+});
+```
+
+### Get vault details
+
+```java
+Vault vault = client.getVault("VAULTID").join();
+```
+
+```java
+client.getVault("VAULTID").whenComplete((vault, throwable) -> {
+  // vault variable contains the vault
+});
+```
+
+### List items
+
+```java
+List<Item> items = client.listItems("VAULTID").join();
+```
+
+```java
+client.listItems("VAULTID").whenComplete((items, throwable) -> {
+  // items variable contains the list of items
+});
+```
+
+### Add an item
+
+```java
+List<Field> fields = new ArrayList<>();
+
+fields.add(Field.username("myemail@test.com").build());
+fields.add(Field.password("testpassword").build());
+
+Item itemToCreate = Item.builder()
+    .withTitle("My Login Item")
+    .withCategory(Category.LOGIN)
+    .withVault("VAULTID")
+    .withFields(fields)
+    .build();
+    
+Item createdItem = client.createItem("VAULTID", itemToCreate).join();
+```
+
+```java
+List<Field> fields = new ArrayList<>();
+
+fields.add(Field.username("myemail@test.com").build());
+fields.add(Field.generatedPassword().build());
+
+Item itemToCreate = Item.builder()
+    .withTitle("My Login Item")
+    .withCategory(Category.LOGIN)
+    .withVault("VAULTID")
+    .withFields(fields)
+    .build();
+    
+client.createItem("VAULTID", itemToCreate).whenComplete((item, throwable) -> {
+  // item variable contains the created item
+});
+```
+
+### Get item details
+
+```java
+Item item = client.getItem("VAULTID", "ITEMID").join();
+```
+
+```java
+client.getItem("VAULTID". "ITEMID").whenComplete((item, throwable) -> {
+  // item variable contains the item
+});
+```
+
+### Replace an item
+
+```java
+Item existing = client.getItem("VAULTID", "ITEMID").join();
+    
+Item replacement = Item.builder()
+    .fromItem(existing)
+    .withTitle("New title")
+    .build();
+
+Item replaced = client.replaceItem("VAULTID", "ITEMID", replacement).join();
+```
+
+```java
+client.getItem("VAULTID", "ITEMID").thenCompose(item -> {
+  Item replacement = Item.builder()
+    .fromItem(item)
+    .withTitle("New title")
+    .build();
+  
+  return client.replaceItem("VAULTID", "ITEMID", replacement);
+}).whenComplete((item, throwable) -> {
+    // item variable contains the replaced item
+});
+```
+
+### Move an item to the trash
+
+```java
+client.deleteItem("VAULTID", "ITEMID").join();
+```
+
+```java
+client.deleteItem("VAULTID". "ITEMID").whenComplete((unused, throwable) -> {
+  // delete does not return the item
+});
+```
+
+### Change item details
+
+```java
+Item patched = client.patchItem(
+    "VAULTID",
+    "ITEMID",
+    Collections.singletonList(
+        new Patch(PatchOperation.REMOVE, "/title")))
+    .join();
+```
+
+```java
+client.patchItem("VAULTID". "ITEMID", Collections.singletonList(new Patch(PatchOperation.REMOVE, "/title"))))
+    .whenComplete((item, throwable) -> {
+      // item variable contains the patched item
+    });
+```
+### List API activity
+
+```java
+List<APIRequest> requests = client.listAPIActivity().join();
+
+// Limit to 5 requests
+List<APIRequest> limitedRequests = client.listAPIActivity(5).join();
+
+// Get 10 requests, starting at index 2
+List<APIRequest> limitedAndOffsetRequests = client.listAPIActivity(10, 2).join();
+```
+
+```java
+client.listAPIActivity().whenComplete((requests, throwable) -> {
+  // requests variable contains the list of requests
 });
 ```
