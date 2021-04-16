@@ -170,4 +170,13 @@ public interface OPConnectClient {
   default OPConnectVaultClient getVaultClient(String vaultUUID) {
     return new OPConnectVaultClient(this, vaultUUID);
   }
+
+  /**
+   * Creates a new {@link OPConnectClientBuilder} instance to build a client.
+   *
+   * @return the new builder instance
+   */
+  static OPConnectClientBuilder builder() {
+    return OPConnectClientBuilder.builder();
+  }
 }

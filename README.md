@@ -32,7 +32,7 @@ Add this library as a dependency in your `pom.xml`:
 Create a client:
 
 ```java
-OPConnectClient client = OPConnectClientBuilder.builder()
+OPConnectClient client = OPConnectClient.builder()
     .withEndpoint("http://localhost:8080")
     .withAccessToken("OP_ACCESS_TOKEN")
     .build();
