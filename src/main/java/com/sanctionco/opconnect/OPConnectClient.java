@@ -1,9 +1,9 @@
-package com.sanctionco.connect;
+package com.sanctionco.opconnect;
 
-import com.sanctionco.connect.model.APIRequest;
-import com.sanctionco.connect.model.Item;
-import com.sanctionco.connect.model.Patch;
-import com.sanctionco.connect.model.Vault;
+import com.sanctionco.opconnect.model.APIRequest;
+import com.sanctionco.opconnect.model.Item;
+import com.sanctionco.opconnect.model.Patch;
+import com.sanctionco.opconnect.model.Vault;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -61,7 +61,7 @@ public interface OPConnectClient {
 
   @GET("/v1/activity")
   CompletableFuture<List<APIRequest>> listAPIActivity(@Query("limit") Integer limit,
-                                                @Query("offset") Integer offset);
+                                                      @Query("offset") Integer offset);
 
   default OPConnectVaultClient getVaultClient(String vaultUUID) {
     return new OPConnectVaultClient(this, vaultUUID);

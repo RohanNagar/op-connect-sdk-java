@@ -1,4 +1,4 @@
-package com.sanctionco.connect.model;
+package com.sanctionco.opconnect.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -11,7 +11,7 @@ import java.util.StringJoiner;
 public class Item {
   private final String id;
   private final String title;
-  private final Vault vault;
+  private final VaultId vault;
   private final Category category;
   private final List<URL> urls;
   private final Boolean favorite;
@@ -26,7 +26,7 @@ public class Item {
 
   private Item(String id,
                String title,
-               Vault vault,
+               VaultId vault,
                Category category,
                List<URL> urls,
                Boolean favorite,
@@ -62,7 +62,7 @@ public class Item {
     return title;
   }
 
-  public Vault getVault() {
+  public VaultId getVault() {
     return vault;
   }
 
@@ -150,7 +150,7 @@ public class Item {
   public static class Builder {
     private String id;
     private String title;
-    private Vault vault;
+    private VaultId vaultId;
     private Category category;
     private List<URL> urls;
     private Boolean favorite;
@@ -162,6 +162,25 @@ public class Item {
     private String lastEditedBy;
     private List<Section> sections;
     private List<Field> fields;
+
+    public Builder fromItem(Item item) {
+      this.id = item.id;
+      this.title = item.title;
+      this.vaultId = item.vault;
+      this.category = item.category;
+      this.urls = item.urls;
+      this.favorite = item.favorite;
+      this.tags = item.tags;
+      this.version = item.version;
+      this.trashed = item.trashed;
+      this.createdAt = item.createdAt;
+      this.updatedAt = item.updatedAt;
+      this.lastEditedBy = item.lastEditedBy;
+      this.sections = item.sections;
+      this.fields = item.fields;
+
+      return this;
+    }
 
     public Builder withId(String id) {
       this.id = id;
@@ -176,7 +195,19 @@ public class Item {
     }
 
     public Builder withVault(Vault vault) {
-      this.vault = vault;
+      this.vaultId = new VaultId(vault.getId());
+
+      return this;
+    }
+
+    public Builder withVaultId(VaultId vaultId) {
+      this.vaultId = vaultId;
+
+      return this;
+    }
+
+    public Builder withVaultId(String id) {
+      this.vaultId = new VaultId(id);
 
       return this;
     }
@@ -249,7 +280,7 @@ public class Item {
 
     public Item build() {
       return new Item(
-          id, title, vault, category, urls, favorite, tags, version, trashed,
+          id, title, vaultId, category, urls, favorite, tags, version, trashed,
           createdAt, updatedAt, lastEditedBy, sections, fields);
     }
   }

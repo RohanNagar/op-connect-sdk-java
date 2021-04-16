@@ -1,13 +1,13 @@
-package com.sanctionco.connect;
+package com.sanctionco.opconnect;
 
-import com.sanctionco.connect.model.APIRequest;
-import com.sanctionco.connect.model.Category;
-import com.sanctionco.connect.model.Field;
-import com.sanctionco.connect.model.Item;
-import com.sanctionco.connect.model.Patch;
-import com.sanctionco.connect.model.PatchOperation;
-import com.sanctionco.connect.model.Purpose;
-import com.sanctionco.connect.model.Vault;
+import com.sanctionco.opconnect.model.APIRequest;
+import com.sanctionco.opconnect.model.Category;
+import com.sanctionco.opconnect.model.Field;
+import com.sanctionco.opconnect.model.Item;
+import com.sanctionco.opconnect.model.Patch;
+import com.sanctionco.opconnect.model.PatchOperation;
+import com.sanctionco.opconnect.model.Purpose;
+import com.sanctionco.opconnect.model.Vault;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +22,7 @@ public class Test {
     List<Vault> vaults = client.listVaults().join();
 
     Vault vault = client.getVault(vaults.get(0).getId()).join();
+    System.out.println(vault);
 
     OPConnectVaultClient vaultClient = client.getVaultClient(vault.getId());
 

@@ -1,8 +1,8 @@
-package com.sanctionco.connect;
+package com.sanctionco.opconnect;
 
-import com.sanctionco.connect.model.Item;
-import com.sanctionco.connect.model.Patch;
-import com.sanctionco.connect.model.Vault;
+import com.sanctionco.opconnect.model.Item;
+import com.sanctionco.opconnect.model.Patch;
+import com.sanctionco.opconnect.model.Vault;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

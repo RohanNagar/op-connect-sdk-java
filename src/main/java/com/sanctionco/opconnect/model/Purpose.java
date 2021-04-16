@@ -1,4 +1,4 @@
-package com.sanctionco.connect.model;
+package com.sanctionco.opconnect.model;
 
 public enum Purpose {
   USERNAME,
