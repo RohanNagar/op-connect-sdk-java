@@ -1,5 +1,8 @@
 package com.sanctionco.opconnect.model;
 
+/**
+ * Represents an item category.
+ */
 public enum Category {
   LOGIN,
   PASSWORD,

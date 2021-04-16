@@ -8,6 +8,9 @@ import com.sanctionco.opconnect.model.VaultId;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Represents a resource that was specified in an {@link APIRequest}.
+ */
 public class Resource {
   private final ResourceType type;
   private final VaultId vault;
@@ -25,18 +28,38 @@ public class Resource {
     this.itemVersion = itemVersion;
   }
 
+  /**
+   * Get the type of the resource.
+   *
+   * @return the type of the resource requested
+   */
   public ResourceType getType() {
     return type;
   }
 
+  /**
+   * Get the ID of the of the vault requested.
+   *
+   * @return an object containing the ID of the vault requested
+   */
   public VaultId getVault() {
     return vault;
   }
 
+  /**
+   * Get the ID of the item requested.
+   *
+   * @return an object containing the ID of the item requested
+   */
   public ItemId getItem() {
     return item;
   }
 
+  /**
+   * Get the version of the item requested.
+   *
+   * @return the version of the item requested
+   */
   public Integer getItemVersion() {
     return itemVersion;
   }

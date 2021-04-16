@@ -5,7 +5,6 @@ import com.sanctionco.opconnect.model.Field;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
 import com.sanctionco.opconnect.model.PatchOperation;
-import com.sanctionco.opconnect.model.Purpose;
 import com.sanctionco.opconnect.model.Vault;
 import com.sanctionco.opconnect.model.apiactivity.APIRequest;
 
@@ -58,8 +57,7 @@ public class TestProgram {
     Item createdItem = Item.builder().withTitle("Test Hello World")
         .withCategory(Category.LOGIN)
         .withVault(vault)
-        .withFields(Collections.singletonList(
-            Field.builder().withPurpose(Purpose.USERNAME).withValue("myname").build()))
+        .withFields(Collections.singletonList(Field.username("myname").build()))
         .build();
     System.out.println("Creating a new item: " + createdItem);
     Item created = vaultClient.createItem(createdItem).join();
@@ -77,8 +75,7 @@ public class TestProgram {
         .withId(patched.getId())
         .withCategory(Category.LOGIN)
         .withVault(vault)
-        .withFields(Collections.singletonList(
-            Field.builder().withPurpose(Purpose.USERNAME).withValue("myreplacedname").build()))
+        .withFields(Collections.singletonList(Field.username("myreplacedname").build()))
         .build();
     Item replaced = vaultClient.replaceItem(patched.getId(), replacingItem).join();
     System.out.println("Successfully replaced: " + replaced);

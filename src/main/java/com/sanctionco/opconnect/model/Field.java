@@ -2,6 +2,9 @@ package com.sanctionco.opconnect.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -101,6 +104,28 @@ public class Field {
         .toString();
   }
 
+  public static Builder username(String username) {
+    return builder().withPurpose(Purpose.USERNAME).withValue(username);
+  }
+
+  public static Builder password(String password) {
+    return builder().withPurpose(Purpose.PASSWORD).withValue(password);
+  }
+
+  public static Builder generatedPassword() {
+    return builder().withPurpose(Purpose.PASSWORD).withGenerate(true);
+  }
+
+  public static Builder generatedPassword(int length) {
+    return builder().withPurpose(Purpose.PASSWORD).withGenerate(true)
+        .withRecipe(new GeneratorRecipe(length, Arrays.asList(CharacterSet.values())));
+  }
+
+  public static Builder generatedPassword(int length, List<CharacterSet> allowedCharacters) {
+    return builder().withPurpose(Purpose.PASSWORD).withGenerate(true)
+        .withRecipe(new GeneratorRecipe(length, new ArrayList<>(allowedCharacters)));
+  }
+
   public static Builder builder() {
     return new Builder();
   }
@@ -141,7 +166,7 @@ public class Field {
       return this;
     }
 
-    public Builder setGenerate(Boolean generate) {
+    public Builder withGenerate(Boolean generate) {
       this.generate = generate;
       return this;
     }
