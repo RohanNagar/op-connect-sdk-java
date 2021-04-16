@@ -59,7 +59,12 @@ public class APIRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     APIRequest that = (APIRequest) o;
-    return Objects.equals(requestId, that.requestId) && Objects.equals(timestamp, that.timestamp) && action == that.action && result == that.result && Objects.equals(actor, that.actor) && Objects.equals(resource, that.resource);
+    return Objects.equals(requestId, that.requestId)
+        && Objects.equals(timestamp, that.timestamp)
+        && action == that.action
+        && result == that.result
+        && Objects.equals(actor, that.actor)
+        && Objects.equals(resource, that.resource);
   }
 
   @Override

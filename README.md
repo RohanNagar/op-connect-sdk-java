@@ -9,3 +9,12 @@ implementing methods/enhancements.
 Open an issue if something is missing that you need.
 
 Maven artifact coming soon.
+
+Create a client:
+
+```java
+OPConnectClient client = OPConnectClientBuilder.builder()
+    .withEndpoint("http://localhost:8080")
+    .withAccessToken("OP_ACCESS_TOKEN")
+    .build();
+```

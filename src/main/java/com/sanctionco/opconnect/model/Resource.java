@@ -44,7 +44,10 @@ public class Resource {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Resource resource = (Resource) o;
-    return type == resource.type && Objects.equals(vault, resource.vault) && Objects.equals(item, resource.item) && Objects.equals(itemVersion, resource.itemVersion);
+    return type == resource.type
+        && Objects.equals(vault, resource.vault)
+        && Objects.equals(item, resource.item)
+        && Objects.equals(itemVersion, resource.itemVersion);
   }
 
   @Override

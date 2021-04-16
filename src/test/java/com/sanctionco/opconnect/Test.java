@@ -39,7 +39,13 @@ public class Test {
     Item foundItem = vaultClient.getItem(items.get(0).getId()).join();
     System.out.println(foundItem);
 
-    Item createdItem = Item.builder().withTitle("Test Hello World").withCategory(Category.LOGIN).withVault(vault).withFields(Collections.singletonList(new Field(null, Purpose.USERNAME, null, null, "myname", false, null, null, null))).build();
+    Item createdItem = Item.builder().withTitle("Test Hello World")
+        .withCategory(Category.LOGIN)
+        .withVault(vault)
+        .withFields(Collections.singletonList(
+            new Field(null, Purpose.USERNAME, null, null, "myname",
+                false, null, null, null)))
+        .build();
     System.out.println("Creating: " + createdItem);
 
     Item created = vaultClient.createItem(createdItem).join();
@@ -51,7 +57,14 @@ public class Test {
     System.out.println("Patched: " + patched);
     Thread.sleep(2000L);
 
-    Item replacingItem = Item.builder().withTitle("Replaced Hello!").withId(patched.getId()).withCategory(Category.LOGIN).withVault(vault).withFields(Collections.singletonList(new Field(null, Purpose.USERNAME, null, null, "myreplacedname", false, null, null, null))).build();
+    Item replacingItem = Item.builder().withTitle("Replaced Hello!")
+        .withId(patched.getId())
+        .withCategory(Category.LOGIN)
+        .withVault(vault)
+        .withFields(Collections.singletonList(
+            new Field(null, Purpose.USERNAME, null, null, "myreplacedname",
+                false, null, null, null)))
+        .build();
     Item replaced = vaultClient.replaceItem(patched.getId(), replacingItem).join();
     System.out.println("Replaced: " + replaced);
     Thread.sleep(2000L);

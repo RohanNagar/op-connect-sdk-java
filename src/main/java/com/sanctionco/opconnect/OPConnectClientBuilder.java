@@ -2,18 +2,22 @@ package com.sanctionco.opconnect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import java.util.Objects;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import java.util.Objects;
 
 public class OPConnectClientBuilder {
   private String endpoint = null;
   private String accessToken = null;
 
-  private OPConnectClientBuilder() {}
+  private OPConnectClientBuilder() {
+  }
 
   public static OPConnectClientBuilder builder() {
     return new OPConnectClientBuilder();
