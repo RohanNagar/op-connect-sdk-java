@@ -3,6 +3,8 @@ package com.sanctionco.connect;
 import com.sanctionco.connect.model.Category;
 import com.sanctionco.connect.model.Field;
 import com.sanctionco.connect.model.Item;
+import com.sanctionco.connect.model.Patch;
+import com.sanctionco.connect.model.PatchOperation;
 import com.sanctionco.connect.model.Purpose;
 import com.sanctionco.connect.model.Vault;
 
@@ -39,10 +41,21 @@ public class Test {
     System.out.println("Creating: " + createdItem);
 
     Item created = vaultClient.createItem(createdItem).join();
-    System.out.println(created);
-    Thread.sleep(1000L);
+    System.out.println("Created: " + created);
+    Thread.sleep(2000L);
+
+    Patch patch = new Patch(PatchOperation.REPLACE, "/title", "Patched Hello");
+    Item patched = vaultClient.patchItem(created.getId(), Collections.singletonList(patch)).join();
+    System.out.println("Patched: " + patched);
+    Thread.sleep(2000L);
+
+    Item replacingItem = Item.builder().withTitle("Replaced Hello!").withId(patched.getId()).withCategory(Category.LOGIN).withVault(vault).withFields(Collections.singletonList(new Field(null, Purpose.USERNAME, null, null, "myreplacedname", false, null, null, null))).build();
+    Item replaced = vaultClient.replaceItem(patched.getId(), replacingItem).join();
+    System.out.println("Replaced: " + replaced);
+    Thread.sleep(2000L);
+
     System.out.println("Deleting");
-    vaultClient.deleteItem(created.getId()).join();
+    vaultClient.deleteItem(replaced.getId()).join();
     System.out.println("Done deleting");
 
     System.exit(0);

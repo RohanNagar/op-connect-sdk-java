@@ -1,6 +1,7 @@
 package com.sanctionco.connect;
 
 import com.sanctionco.connect.model.Item;
+import com.sanctionco.connect.model.Patch;
 import com.sanctionco.connect.model.Vault;
 
 import java.util.List;
@@ -33,6 +34,14 @@ public class OPConnectVaultClient {
 
   public CompletableFuture<Item> createItem(Item item) {
     return client.createItem(vaultUUID, item);
+  }
+
+  public CompletableFuture<Item> replaceItem(String itemUUID, Item item) {
+    return client.replaceItem(vaultUUID, itemUUID, item);
+  }
+
+  public CompletableFuture<Item> patchItem(String itemUUID, List<Patch> patches) {
+    return client.patchItem(vaultUUID, itemUUID, patches);
   }
 
   public CompletableFuture<Void> deleteItem(String itemUUID) {

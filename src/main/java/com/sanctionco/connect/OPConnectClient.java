@@ -1,11 +1,14 @@
 package com.sanctionco.connect;
 
 import com.sanctionco.connect.model.Item;
+import com.sanctionco.connect.model.Patch;
 import com.sanctionco.connect.model.Vault;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -34,6 +37,16 @@ public interface OPConnectClient {
   @POST("/v1/vaults/{vaultId}/items")
   CompletableFuture<Item> createItem(@Path("vaultId") String vaultUUID,
                                      @Body Item item);
+
+  @PUT("/v1/vaults/{vaultId}/items/{itemId}")
+  CompletableFuture<Item> replaceItem(@Path("vaultId") String vaultUUID,
+                                      @Path("itemId") String itemUUID,
+                                      @Body Item item);
+
+  @PATCH("/v1/vaults/{vaultId}/items/{itemId}")
+  CompletableFuture<Item> patchItem(@Path("vaultId") String vaultUUID,
+                                    @Path("itemId") String itemUUID,
+                                    @Body List<Patch> patches);
 
   @DELETE("/v1/vaults/{vaultId}/items/{itemId}")
   CompletableFuture<Void> deleteItem(@Path("vaultId") String vaultUUID,
