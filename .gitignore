@@ -21,6 +21,8 @@ _build/
 
 # Temporary Maven files
 dependency-reduced-pom.xml
+release.properties
+pom.xml.releaseBackup
 
 # Log files
 *.log
