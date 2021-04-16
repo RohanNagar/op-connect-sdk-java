@@ -1,4 +1,4 @@
-package com.sanctionco.opconnect.model;
+package com.sanctionco.opconnect.model.apiactivity;
 
 public enum APIRequestResult {
   SUCCESS,

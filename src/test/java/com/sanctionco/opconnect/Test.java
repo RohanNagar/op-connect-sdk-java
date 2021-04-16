@@ -1,6 +1,5 @@
 package com.sanctionco.opconnect;
 
-import com.sanctionco.opconnect.model.APIRequest;
 import com.sanctionco.opconnect.model.Category;
 import com.sanctionco.opconnect.model.Field;
 import com.sanctionco.opconnect.model.Item;
@@ -8,6 +7,7 @@ import com.sanctionco.opconnect.model.Patch;
 import com.sanctionco.opconnect.model.PatchOperation;
 import com.sanctionco.opconnect.model.Purpose;
 import com.sanctionco.opconnect.model.Vault;
+import com.sanctionco.opconnect.model.apiactivity.APIRequest;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +20,7 @@ public class Test {
         .build();
 
     List<Vault> vaults = client.listVaults().join();
+    System.out.println(vaults);
 
     Vault vault = client.getVault(vaults.get(0).getId()).join();
     System.out.println(vault);

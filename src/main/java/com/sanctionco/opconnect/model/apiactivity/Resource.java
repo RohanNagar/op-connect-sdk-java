@@ -1,21 +1,23 @@
-package com.sanctionco.opconnect.model;
+package com.sanctionco.opconnect.model.apiactivity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sanctionco.opconnect.model.ItemId;
+import com.sanctionco.opconnect.model.VaultId;
 
 import java.util.Objects;
 import java.util.StringJoiner;
 
 public class Resource {
   private final ResourceType type;
-  private final Vault vault;
-  private final Item item;
+  private final VaultId vault;
+  private final ItemId item;
   private final Integer itemVersion;
 
   @JsonCreator
   public Resource(@JsonProperty("type") ResourceType type,
-                  @JsonProperty("vault") Vault vault,
-                  @JsonProperty("item") Item item,
+                  @JsonProperty("vault") VaultId vault,
+                  @JsonProperty("item") ItemId item,
                   @JsonProperty("itemVersion") Integer itemVersion) {
     this.type = type;
     this.vault = vault;
@@ -27,11 +29,11 @@ public class Resource {
     return type;
   }
 
-  public Vault getVault() {
+  public VaultId getVault() {
     return vault;
   }
 
-  public Item getItem() {
+  public ItemId getItem() {
     return item;
   }
 

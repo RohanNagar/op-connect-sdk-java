@@ -1,4 +1,4 @@
-package com.sanctionco.opconnect.model;
+package com.sanctionco.opconnect.model.apiactivity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
