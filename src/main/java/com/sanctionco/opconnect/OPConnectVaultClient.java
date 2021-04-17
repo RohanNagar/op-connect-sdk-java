@@ -4,6 +4,7 @@ import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
 import com.sanctionco.opconnect.model.Vault;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -92,7 +93,7 @@ public class OPConnectVaultClient {
   }
 
   /**
-   * Applies an add, remove, or replace operation on an item or the fields of an item.
+   * Applies a list of add, remove, or replace operations on an item or the fields of an item.
    * Uses the <a href="https://tools.ietf.org/html/rfc6902">RFC6902 JSON Patch</a>
    * document standard.
    *
@@ -103,6 +104,20 @@ public class OPConnectVaultClient {
    */
   public CompletableFuture<Item> patchItem(String itemUUID, List<Patch> patches) {
     return client.patchItem(vaultUUID, itemUUID, patches);
+  }
+
+  /**
+   * Applies an add, remove, or replace operation on an item or the fields of an item.
+   * Uses the <a href="https://tools.ietf.org/html/rfc6902">RFC6902 JSON Patch</a>
+   * document standard.
+   *
+   * @param itemUUID the id of the item to patch
+   * @param patch a patch to apply to the item
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with
+   *         the updated item
+   */
+  public CompletableFuture<Item> patchItem(String itemUUID, Patch patch) {
+    return client.patchItem(vaultUUID, itemUUID, patch);
   }
 
   /**

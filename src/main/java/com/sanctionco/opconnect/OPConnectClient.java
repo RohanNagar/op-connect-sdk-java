@@ -103,7 +103,7 @@ public interface OPConnectClient {
                                       @Body Item item);
 
   /**
-   * Applies a set of add, remove, or replace operations on an item or the fields of an item.
+   * Applies a list of add, remove, or replace operations on an item or the fields of an item.
    * Uses the <a href="https://tools.ietf.org/html/rfc6902">RFC6902 JSON Patch</a>
    * document standard.
    *
