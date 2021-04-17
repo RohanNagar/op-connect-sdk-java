@@ -65,7 +65,10 @@ public class TestProgram {
     Thread.sleep(2000L);
 
     System.out.println("Patching item to update title...");
-    Patch patch = new Patch(PatchOperation.REPLACE, "/title", "Patched Hello");
+    Patch patch = Patch.replace()
+        .withPath("/title")
+        .withValue("Patched Hello")
+        .build();
     Item patched = vaultClient.patchItem(created.getId(), Collections.singletonList(patch)).join();
     System.out.println("Successfully patched: " + patched);
     Thread.sleep(2000L);

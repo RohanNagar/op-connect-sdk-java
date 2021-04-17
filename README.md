@@ -158,16 +158,13 @@ client.deleteItem("VAULTID". "ITEMID").whenComplete((unused, throwable) -> {
 ### Change item details
 
 ```java
-Item patched = client.patchItem(
-    "VAULTID",
-    "ITEMID",
-    Collections.singletonList(
-        new Patch(PatchOperation.REMOVE, "/title")))
+Item patched = client
+    .patchItem("VAULTID","ITEMID", Patch.remove().withPath("/title").build())
     .join();
 ```
 
 ```java
-client.patchItem("VAULTID". "ITEMID", Collections.singletonList(new Patch(PatchOperation.REMOVE, "/title"))))
+client.patchItem("VAULTID". "ITEMID", Patch.remove().withPath("/title").build())
     .whenComplete((item, throwable) -> {
       // item variable contains the patched item
     });

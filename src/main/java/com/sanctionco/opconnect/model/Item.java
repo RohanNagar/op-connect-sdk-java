@@ -25,19 +25,9 @@ public class Item {
   private final List<Section> sections;
   private final List<Field> fields;
 
-  private Item(String id,
-               String title,
-               VaultId vault,
-               Category category,
-               List<URL> urls,
-               Boolean favorite,
-               List<String> tags,
-               Integer version,
-               Boolean trashed,
-               Instant createdAt,
-               Instant updatedAt,
-               String lastEditedBy,
-               List<Section> sections,
+  private Item(String id, String title, VaultId vault, Category category, List<URL> urls,
+               Boolean favorite, List<String> tags, Integer version, Boolean trashed,
+               Instant createdAt, Instant updatedAt, String lastEditedBy, List<Section> sections,
                List<Field> fields) {
     this.id = id;
     this.title = title;
@@ -154,10 +144,10 @@ public class Item {
     private VaultId vaultId;
     private Category category;
     private List<URL> urls = new ArrayList<>();
-    private Boolean favorite;
+    private Boolean favorite = false;
     private List<String> tags = new ArrayList<>();
     private Integer version;
-    private Boolean trashed;
+    private Boolean trashed = false;
     private Instant createdAt;
     private Instant updatedAt;
     private String lastEditedBy;
