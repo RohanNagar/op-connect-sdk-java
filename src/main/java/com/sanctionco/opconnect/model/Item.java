@@ -138,6 +138,14 @@ public class Item {
     return new Builder();
   }
 
+  public static Builder login() {
+    return builder().withCategory(Category.LOGIN);
+  }
+
+  public static Builder password() {
+    return builder().withCategory(Category.PASSWORD);
+  }
+
   public static class Builder {
     private String id;
     private String title;

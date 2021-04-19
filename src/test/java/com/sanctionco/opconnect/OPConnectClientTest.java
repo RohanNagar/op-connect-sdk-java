@@ -1,5 +1,6 @@
 package com.sanctionco.opconnect;
 
+import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Vault;
 
 import io.dropwizard.testing.junit5.DropwizardClientExtension;
@@ -52,6 +53,19 @@ class OPConnectClientTest {
 
       return Response.ok().entity(Vault.builder().withId(id).build()).build();
     }
+
+    @GET
+    @Path("/vaults/{id}/items")
+    public Response mockListItems(@PathParam("id") String id) {
+      if (id.equals("notfound")) {
+        return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+      }
+
+      return Response.ok()
+          .entity(Collections.singletonList(
+              Item.login().withId(id).withVaultId("vid").build()))
+          .build();
+    }
   }
 
   private static final DropwizardClientExtension extension =
@@ -89,5 +103,28 @@ class OPConnectClientTest {
     }).join();
 
     assertEquals("ownvault", response.getId());
+  }
+
+  @Test
+  void testListItems() {
+    List<Item> response = client.listItems("list-items-id").join();
+
+    assertEquals(1, response.size());
+    assertEquals("list-items-id", response.get(0).getId());
+  }
+
+  @Test
+  void testListItemsNotFound() {
+    List<Item> response = client.listItems("notfound").exceptionally(throwable -> {
+      assertNotNull(throwable);
+      assertTrue(throwable instanceof HttpException);
+
+      assertEquals(404, ((HttpException) throwable).code());
+
+      return Collections.singletonList(Item.builder().withId("ownvault").build());
+    }).join();
+
+    assertEquals(1, response.size());
+    assertEquals("ownvault", response.get(0).getId());
   }
 }
