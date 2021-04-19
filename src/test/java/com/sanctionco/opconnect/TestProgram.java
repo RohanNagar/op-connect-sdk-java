@@ -4,7 +4,6 @@ import com.sanctionco.opconnect.model.Category;
 import com.sanctionco.opconnect.model.Field;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
-import com.sanctionco.opconnect.model.PatchOperation;
 import com.sanctionco.opconnect.model.Vault;
 import com.sanctionco.opconnect.model.apiactivity.APIRequest;
 
