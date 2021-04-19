@@ -38,7 +38,9 @@ public class OPConnectClientBuilder {
    * @return this
    */
   public OPConnectClientBuilder withEndpoint(String endpoint) {
-    this.endpoint = Objects.requireNonNull(endpoint, "The endpoint must not be null.");
+    Objects.requireNonNull(endpoint, "The endpoint must not be null.");
+
+    this.endpoint = ensureTrailingSlashExists(endpoint);
 
     return this;
   }
@@ -99,5 +101,17 @@ public class OPConnectClientBuilder {
     });
 
     return httpClient.build();
+  }
+
+  /**
+   * Ensures that the given URL ends with a trailing slash ('/').
+   *
+   * @param url the url to verify contains a trailing slash
+   * @return the original url with a trailing slash added if necessary
+   */
+  static String ensureTrailingSlashExists(String url) {
+    return url.endsWith("/")
+        ? url
+        : url + "/";
   }
 }

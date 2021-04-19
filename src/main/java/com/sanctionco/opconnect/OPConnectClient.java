@@ -29,7 +29,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         the list of available vault objects
    */
-  @GET("/v1/vaults")
+  @GET("v1/vaults")
   CompletableFuture<List<Vault>> listVaults();
 
   /**
@@ -39,7 +39,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         the vault object
    */
-  @GET("/v1/vaults/{id}")
+  @GET("v1/vaults/{id}")
   CompletableFuture<Vault> getVault(@Path("id") String vaultUUID);
 
   /**
@@ -49,7 +49,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         a list of items that exist in the vault, without sections or fields
    */
-  @GET("/v1/vaults/{id}/items")
+  @GET("v1/vaults/{id}/items")
   CompletableFuture<List<Item>> listItems(@Path("id") String vaultUUID);
 
   /**
@@ -60,7 +60,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with a
    *         list of items that exist in the vault and match the filter, without sections or fields
    */
-  @GET("/v1/vaults/{id}/items")
+  @GET("v1/vaults/{id}/items")
   CompletableFuture<List<Item>> listItems(@Path("id") String vaultUUID,
                                           @Query("filter") String filter);
 
@@ -72,7 +72,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         the item
    */
-  @GET("/v1/vaults/{vaultId}/items/{itemId}")
+  @GET("v1/vaults/{vaultId}/items/{itemId}")
   CompletableFuture<Item> getItem(@Path("vaultId") String vaultUUID,
                                   @Path("itemId") String itemUUID);
 
@@ -84,7 +84,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         the newly created item
    */
-  @POST("/v1/vaults/{vaultId}/items")
+  @POST("v1/vaults/{vaultId}/items")
   CompletableFuture<Item> createItem(@Path("vaultId") String vaultUUID,
                                      @Body Item item);
 
@@ -97,7 +97,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         the newly replaced item
    */
-  @PUT("/v1/vaults/{vaultId}/items/{itemId}")
+  @PUT("v1/vaults/{vaultId}/items/{itemId}")
   CompletableFuture<Item> replaceItem(@Path("vaultId") String vaultUUID,
                                       @Path("itemId") String itemUUID,
                                       @Body Item item);
@@ -113,7 +113,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         the updated item
    */
-  @PATCH("/v1/vaults/{vaultId}/items/{itemId}")
+  @PATCH("v1/vaults/{vaultId}/items/{itemId}")
   CompletableFuture<Item> patchItem(@Path("vaultId") String vaultUUID,
                                     @Path("itemId") String itemUUID,
                                     @Body List<Patch> patches);
@@ -141,7 +141,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed when the
    *         operation is complete
    */
-  @DELETE("/v1/vaults/{vaultId}/items/{itemId}")
+  @DELETE("v1/vaults/{vaultId}/items/{itemId}")
   CompletableFuture<Void> deleteItem(@Path("vaultId") String vaultUUID,
                                      @Path("itemId") String itemUUID);
 
@@ -151,7 +151,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         a list of {@link APIRequest} objects that describe activity
    */
-  @GET("/v1/activity")
+  @GET("v1/activity")
   CompletableFuture<List<APIRequest>> listAPIActivity();
 
   /**
@@ -161,7 +161,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         a list of {@link APIRequest} objects that describe activity
    */
-  @GET("/v1/activity")
+  @GET("v1/activity")
   CompletableFuture<List<APIRequest>> listAPIActivity(@Query("limit") Integer limit);
 
   /**
@@ -173,7 +173,7 @@ public interface OPConnectClient {
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         a list of {@link APIRequest} objects that describe activity
    */
-  @GET("/v1/activity")
+  @GET("v1/activity")
   CompletableFuture<List<APIRequest>> listAPIActivity(@Query("limit") Integer limit,
                                                       @Query("offset") Integer offset);
 

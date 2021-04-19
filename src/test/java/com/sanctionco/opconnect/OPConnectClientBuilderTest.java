@@ -2,6 +2,8 @@ package com.sanctionco.opconnect;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,5 +31,22 @@ class OPConnectClientBuilderTest {
         .withEndpoint("https://endpoint")
         .withAccessToken("token")
         .build();
+  }
+
+  @Test
+  void testEnsureTrailingSlashExistsNoChange() {
+    String url = "https://www.sanctionco.com/";
+    String result = OPConnectClientBuilder.ensureTrailingSlashExists(url);
+
+    assertEquals(url, result);
+  }
+
+  @Test
+  void testEnsureTrailingSlashExistsNoSlash() {
+    String url = "https://www.sanctionco.com";
+    String result = OPConnectClientBuilder.ensureTrailingSlashExists(url);
+
+    assertNotEquals(url, result);
+    assertEquals("https://www.sanctionco.com/", result);
   }
 }

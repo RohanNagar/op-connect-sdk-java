@@ -1,12 +1,12 @@
 package com.sanctionco.opconnect.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.Instant;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+@JsonDeserialize(builder = Vault.Builder.class)
 public class Vault {
   private final String id;
   private final String name;
@@ -18,16 +18,9 @@ public class Vault {
   private final Instant createdAt;
   private final Instant updatedAt;
 
-  @JsonCreator
-  public Vault(@JsonProperty("id") String id,
-               @JsonProperty("name") String name,
-               @JsonProperty("description") String description,
-               @JsonProperty("attributeVersion") Integer attributeVersion,
-               @JsonProperty("contentVersion") Integer contentVersion,
-               @JsonProperty("items") Integer items,
-               @JsonProperty("type") String type,
-               @JsonProperty("createdAt") Instant createdAt,
-               @JsonProperty("updatedAt") Instant updatedAt) {
+  public Vault(String id, String name, String description,
+               Integer attributeVersion, Integer contentVersion, Integer items,
+               String type, Instant createdAt, Instant updatedAt) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -101,5 +94,72 @@ public class Vault {
         .add("createdAt=" + createdAt)
         .add("updatedAt=" + updatedAt)
         .toString();
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static class Builder {
+    private String id;
+    private String name;
+    private String description;
+    private Integer attributeVersion;
+    private Integer contentVersion;
+    private Integer items;
+    private String type;
+    private Instant createdAt;
+    private Instant updatedAt;
+
+    public Builder withId(String id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder withName(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public Builder withDescription(String description) {
+      this.description = description;
+      return this;
+    }
+
+    public Builder withAttributeVersion(Integer attributeVersion) {
+      this.attributeVersion = attributeVersion;
+      return this;
+    }
+
+    public Builder withContentVersion(Integer contentVersion) {
+      this.contentVersion = contentVersion;
+      return this;
+    }
+
+    public Builder withItems(Integer items) {
+      this.items = items;
+      return this;
+    }
+
+    public Builder withType(String type) {
+      this.type = type;
+      return this;
+    }
+
+    public Builder withCreatedAt(Instant createdAt) {
+      this.createdAt = createdAt;
+      return this;
+    }
+
+    public Builder withUpdatedAt(Instant updatedAt) {
+      this.updatedAt = updatedAt;
+      return this;
+    }
+
+    public Vault build() {
+      return new Vault(
+          id, name, description, attributeVersion, contentVersion,
+          items, type, createdAt, updatedAt);
+    }
   }
 }
