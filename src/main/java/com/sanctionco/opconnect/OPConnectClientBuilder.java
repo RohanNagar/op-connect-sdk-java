@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,6 +19,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class OPConnectClientBuilder {
   private String endpoint = null;
   private String accessToken = null;
+  private Long timeout = null;
 
   private OPConnectClientBuilder() {
   }
@@ -53,6 +55,18 @@ public class OPConnectClientBuilder {
    */
   public OPConnectClientBuilder withAccessToken(String accessToken) {
     this.accessToken = Objects.requireNonNull(accessToken, "The access token must not be null.");
+
+    return this;
+  }
+
+  /**
+   * Set the timeout in milliseconds. Default timeout is 10000 milliseconds (10 seconds).
+   *
+   * @param timeout the timeout in milliseconds
+   * @return this
+   */
+  public OPConnectClientBuilder withTimeoutInMilliseconds(long timeout) {
+    this.timeout = timeout;
 
     return this;
   }
@@ -99,6 +113,13 @@ public class OPConnectClientBuilder {
 
       return chain.proceed(request);
     });
+
+    if (timeout != null) {
+      httpClient
+          .connectTimeout(timeout, TimeUnit.MILLISECONDS)
+          .readTimeout(timeout, TimeUnit.MILLISECONDS)
+          .writeTimeout(timeout, TimeUnit.MILLISECONDS);
+    }
 
     return httpClient.build();
   }

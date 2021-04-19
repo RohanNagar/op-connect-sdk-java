@@ -34,6 +34,15 @@ class OPConnectClientBuilderTest {
   }
 
   @Test
+  void shouldBuildWithTimeout() {
+    OPConnectClientBuilder.builder()
+        .withEndpoint("https://endpoint")
+        .withAccessToken("token")
+        .withTimeoutInMilliseconds(5000L)
+        .build();
+  }
+
+  @Test
   void testEnsureTrailingSlashExistsNoChange() {
     String url = "https://www.sanctionco.com/";
     String result = OPConnectClientBuilder.ensureTrailingSlashExists(url);
