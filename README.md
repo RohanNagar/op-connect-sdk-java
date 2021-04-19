@@ -112,7 +112,7 @@ Item item = client.getItem("VAULTID", "ITEMID").join();
 ```
 
 ```java
-client.getItem("VAULTID". "ITEMID").whenComplete((item, throwable) -> {
+client.getItem("VAULTID", "ITEMID").whenComplete((item, throwable) -> {
   // item variable contains the item
 });
 ```
@@ -150,7 +150,7 @@ client.deleteItem("VAULTID", "ITEMID").join();
 ```
 
 ```java
-client.deleteItem("VAULTID". "ITEMID").whenComplete((unused, throwable) -> {
+client.deleteItem("VAULTID", "ITEMID").whenComplete((unused, throwable) -> {
   // delete does not return the item
 });
 ```
@@ -159,12 +159,12 @@ client.deleteItem("VAULTID". "ITEMID").whenComplete((unused, throwable) -> {
 
 ```java
 Item patched = client
-    .patchItem("VAULTID","ITEMID", Patch.remove().withPath("/title").build())
+    .patchItem("VAULTID", "ITEMID", Patch.remove().withPath("/title").build())
     .join();
 ```
 
 ```java
-client.patchItem("VAULTID". "ITEMID", Patch.remove().withPath("/title").build())
+client.patchItem("VAULTID", "ITEMID", Patch.remove().withPath("/title").build())
     .whenComplete((item, throwable) -> {
       // item variable contains the patched item
     });
