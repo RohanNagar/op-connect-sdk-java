@@ -5,8 +5,12 @@ public enum Type {
   EMAIL,
   CONCEALED,
   URL,
-  TOTP,
+  OTP,
   DATE,
   MONTH_YEAR,
-  MENU
+  MENU,
+  CREDIT_CARD_TYPE,
+  CREDIT_CARD_NUMBER,
+  PHONE,
+  ADDRESS
 }
