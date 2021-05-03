@@ -17,6 +17,7 @@ public class URL {
     this.primary = primary;
   }
 
+  @JsonProperty("href")
   public String getUrl() {
     return url;
   }

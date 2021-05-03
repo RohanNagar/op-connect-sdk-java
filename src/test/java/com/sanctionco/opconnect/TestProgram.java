@@ -4,6 +4,7 @@ import com.sanctionco.opconnect.model.Category;
 import com.sanctionco.opconnect.model.Field;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
+import com.sanctionco.opconnect.model.URL;
 import com.sanctionco.opconnect.model.Vault;
 import com.sanctionco.opconnect.model.apiactivity.APIRequest;
 
@@ -57,6 +58,7 @@ public class TestProgram {
         .withCategory(Category.LOGIN)
         .withVault(vault)
         .withField(Field.username("myname").build())
+        .withUrl(new URL("https://www.test.com", true))
         .build();
     System.out.println("Creating a new item: " + createdItem);
     Item created = vaultClient.createItem(createdItem).join();
