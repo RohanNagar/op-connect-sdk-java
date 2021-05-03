@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Represents an item that is stored in a {@link Vault}.
+ */
 @JsonDeserialize(builder = Item.Builder.class)
 public class Item {
   private final String id;
@@ -25,58 +28,100 @@ public class Item {
   private final List<Section> sections;
   private final List<Field> fields;
 
-  private Item(String id, String title, VaultId vault, Category category, List<URL> urls,
-               Boolean favorite, List<String> tags, Integer version, Boolean trashed,
-               Instant createdAt, Instant updatedAt, String lastEditedBy, List<Section> sections,
-               List<Field> fields) {
-    this.id = id;
-    this.title = title;
-    this.vault = vault;
-    this.category = category;
-    this.urls = urls;
-    this.favorite = favorite;
-    this.tags = tags;
-    this.version = version;
-    this.trashed = trashed;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-    this.lastEditedBy = lastEditedBy;
-    this.sections = sections;
-    this.fields = fields;
+  private Item(Builder builder) {
+    this.id = builder.id;
+    this.title = builder.title;
+    this.vault = builder.vaultId;
+    this.category = builder.category;
+    this.urls = builder.urls;
+    this.favorite = builder.favorite;
+    this.tags = builder.tags;
+    this.version =builder.version;
+    this.trashed = builder.trashed;
+    this.createdAt = builder.createdAt;
+    this.updatedAt = builder.updatedAt;
+    this.lastEditedBy = builder.lastEditedBy;
+    this.sections = builder.sections;
+    this.fields = builder.fields;
   }
 
+  /**
+   * Get the unique ID of the item.
+   *
+   * @return the id of this item
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Get the title of the item.
+   *
+   * @return the title of this item
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Get the {@link VaultId} indicating the vault that this item belongs to.
+   *
+   * @return the vault id that this item belongs to
+   */
   public VaultId getVault() {
     return vault;
   }
 
+  /**
+   * Get the category of the item.
+   *
+   * @return the category of this item
+   */
   public Category getCategory() {
     return category;
   }
 
+  /**
+   * Get the list of URLs associated with the item.
+   *
+   * @return the list of URLs associated with this item
+   */
   public List<URL> getUrls() {
     return urls;
   }
 
+  /**
+   * Get whether or not the item has been marked as a favorite.
+   *
+   * @return true is this item is a favorite, false otherwise
+   */
   public Boolean getFavorite() {
     return favorite;
   }
 
+  /**
+   * Get the list of tags associated with the item.
+   *
+   * @return the list of tags associated with this item
+   */
   public List<String> getTags() {
     return tags;
   }
 
+  /**
+   * Get the version of the item.
+   *
+   * @return the version of this item
+   */
   public Integer getVersion() {
     return version;
   }
 
+  /**
+   * Get whether or not this item is in the trash.
+   *
+   * @return true if this item is in the trash, false otherwise
+   */
   public Boolean getTrashed() {
     return trashed;
   }
@@ -282,9 +327,7 @@ public class Item {
     }
 
     public Item build() {
-      return new Item(
-          id, title, vaultId, category, urls, favorite, tags, version, trashed,
-          createdAt, updatedAt, lastEditedBy, sections, fields);
+      return new Item(this);
     }
   }
 }

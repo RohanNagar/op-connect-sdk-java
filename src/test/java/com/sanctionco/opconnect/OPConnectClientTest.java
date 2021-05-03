@@ -13,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -47,7 +48,7 @@ class OPConnectClientTest {
     @GET
     @Path("/vaults/{id}")
     public Response mockGetVault(@PathParam("id") String id) {
-      if (id.equals("notfound")) {
+      if ("notfound".equals(id)) {
         return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
       }
 
@@ -56,9 +57,14 @@ class OPConnectClientTest {
 
     @GET
     @Path("/vaults/{id}/items")
-    public Response mockListItems(@PathParam("id") String id) {
-      if (id.equals("notfound")) {
+    public Response mockListItems(@PathParam("id") String id,
+                                  @QueryParam("filter") String filter) {
+      if ("notfound".equals(id)) {
         return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+      }
+
+      if ("filtered".equals(filter)) {
+        return Response.ok().entity(Collections.emptyList()).build();
       }
 
       return Response.ok()
@@ -126,5 +132,35 @@ class OPConnectClientTest {
 
     assertEquals(1, response.size());
     assertEquals("ownvault", response.get(0).getId());
+  }
+
+  @Test
+  void testListItemsNotFoundFilter() {
+    List<Item> response = client.listItems("notfound").exceptionally(throwable -> {
+      assertNotNull(throwable);
+      assertTrue(throwable instanceof HttpException);
+
+      assertEquals(404, ((HttpException) throwable).code());
+
+      return Collections.singletonList(Item.builder().withId("ownvault").build());
+    }).join();
+
+    assertEquals(1, response.size());
+    assertEquals("ownvault", response.get(0).getId());
+  }
+
+  @Test
+  void testListItemsFiltered() {
+    List<Item> response = client.listItems("vaultId", "filtered").join();
+
+    assertEquals(0, response.size());
+  }
+
+  @Test
+  void testListItemsFilterNoMatch() {
+    List<Item> response = client.listItems("vaultId", "random").join();
+
+    assertEquals(1, response.size());
+    assertEquals("vaultId", response.get(0).getId());
   }
 }
