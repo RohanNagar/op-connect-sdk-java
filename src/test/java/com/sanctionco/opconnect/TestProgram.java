@@ -45,8 +45,8 @@ public class TestProgram {
     List<Item> items = vaultClient.listItems().join();
     System.out.println("Got " + items.size() + " items:" + items);
 
-    System.out.println("Listing items that contain 'Hello' in the title...");
-    items = vaultClient.listItems("title co \"Hello\"").join();
+    System.out.println("Listing items that contain 'API' in the title...");
+    items = vaultClient.listItems("title co \"API\"").join();
     System.out.println("Got " + items.size() + " items:" + items);
 
     System.out.println("Getting details of the first item...");

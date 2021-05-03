@@ -36,7 +36,7 @@ public class Item {
     this.urls = builder.urls;
     this.favorite = builder.favorite;
     this.tags = builder.tags;
-    this.version =builder.version;
+    this.version = builder.version;
     this.trashed = builder.trashed;
     this.createdAt = builder.createdAt;
     this.updatedAt = builder.updatedAt;
