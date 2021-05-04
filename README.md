@@ -23,7 +23,7 @@ Add this library as a dependency in your `pom.xml`:
 <dependency>
   <groupId>com.sanctionco.opconnect</groupId>
   <artifactId>opconnect-java</artifactId>
-  <version>0.2.1</version>
+  <version>0.2.2</version>
 </dependency>
 ```
 
@@ -74,6 +74,24 @@ List<Item> items = client.listItems("VAULTID").join();
 ```java
 client.listItems("VAULTID").whenComplete((items, throwable) -> {
   // items variable contains the list of items
+});
+```
+
+#### With a Filter
+
+```java
+Filter filter = Filter.title().contains("Login");
+
+List<Item> loginItems = client.listItems("VAULTID", filter).join();
+```
+
+```java
+Filter filter = Filter.title()
+    .contains("Test")
+    .or(Filter.title().equals("Test2"))
+
+client.listItems("VAULTID", filter).whenComplete((testItems, throwable) -> {
+  // testItems variable contains the list of items
 });
 ```
 
