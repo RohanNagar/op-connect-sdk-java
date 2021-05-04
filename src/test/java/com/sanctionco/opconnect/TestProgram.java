@@ -49,7 +49,7 @@ public class TestProgram {
 
     System.out.println("Listing items that contain 'API' in the title...");
     items = vaultClient
-        .listItems(Filter.field("title").contains("Phone").build())
+        .listItems(Filter.title().contains("Phone").build())
         .join();
     System.out.println("Got " + items.size() + " items:" + items);
 

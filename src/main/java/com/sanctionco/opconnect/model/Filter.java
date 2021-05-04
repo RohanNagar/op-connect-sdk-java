@@ -8,6 +8,19 @@ public class Filter {
       throw new IllegalArgumentException("Only one of 'and'/'or' can be set for a Filter.");
     }
 
+    if (builder.operator == null) {
+      throw new IllegalArgumentException("Operator must be set.");
+    }
+
+    if (builder.operator.equals(Operator.PRESENT)) {
+      filter = String.format("%s %s", builder.field, builder.operator.getOpText());
+      return;
+    }
+
+    if (builder.value == null) {
+      throw new IllegalArgumentException("Value must be set.");
+    }
+
     if (builder.and == null && builder.or == null) {
       // no parenthesis
       filter = String.format("%s %s \"%s\"",
@@ -33,12 +46,11 @@ public class Filter {
     return filter;
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
+  public static Builder title() {
+    Builder builder = new Builder();
+    builder.field = "title";
 
-  public static Builder field(String field) {
-    return builder().withField(field);
+    return builder;
   }
 
   public static class Builder {
@@ -48,11 +60,6 @@ public class Filter {
 
     private Filter and;
     private Filter or;
-
-    public Builder withField(String field) {
-      this.field = field;
-      return this;
-    }
 
     Builder withOpAndValue(Operator op, String value) {
       this.operator = op;

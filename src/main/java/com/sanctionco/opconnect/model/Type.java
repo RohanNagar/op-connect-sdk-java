@@ -12,5 +12,6 @@ public enum Type {
   CREDIT_CARD_TYPE,
   CREDIT_CARD_NUMBER,
   PHONE,
-  ADDRESS
+  ADDRESS,
+  GENDER
 }
