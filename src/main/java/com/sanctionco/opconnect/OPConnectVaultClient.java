@@ -1,10 +1,10 @@
 package com.sanctionco.opconnect;
 
+import com.sanctionco.opconnect.model.Filter;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
 import com.sanctionco.opconnect.model.Vault;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -56,6 +56,17 @@ public class OPConnectVaultClient {
    */
   public CompletableFuture<List<Item>> listItems(String filter) {
     return client.listItems(vaultUUID, filter);
+  }
+
+  /**
+   * List the items from the given vault, filtering based on the filter.
+   *
+   * @param filter the {@link Filter} to filter the results server-side
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with a
+   *         list of items that exist in the vault and match the filter, without sections or fields
+   */
+  public CompletableFuture<List<Item>> listItems(Filter filter) {
+    return client.listItems(vaultUUID, filter.getFilter());
   }
 
   /**

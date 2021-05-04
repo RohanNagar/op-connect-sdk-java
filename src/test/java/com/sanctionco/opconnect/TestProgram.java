@@ -2,6 +2,7 @@ package com.sanctionco.opconnect;
 
 import com.sanctionco.opconnect.model.Category;
 import com.sanctionco.opconnect.model.Field;
+import com.sanctionco.opconnect.model.Filter;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
 import com.sanctionco.opconnect.model.URL;
@@ -47,7 +48,9 @@ public class TestProgram {
     System.out.println("Got " + items.size() + " items:" + items);
 
     System.out.println("Listing items that contain 'API' in the title...");
-    items = vaultClient.listItems("title co \"Phone\"").join();
+    items = vaultClient
+        .listItems(Filter.field("title").contains("Phone").build())
+        .join();
     System.out.println("Got " + items.size() + " items:" + items);
 
     System.out.println("Getting details of the first item...");
