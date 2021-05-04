@@ -20,11 +20,11 @@ public class Actor {
   private final String ip;
 
   @JsonCreator
-  public Actor(@JsonProperty("id") String id,
-               @JsonProperty("account") String account,
-               @JsonProperty("jti") String jti,
-               @JsonProperty("userAgent") String userAgent,
-               @JsonProperty("ip") String ip) {
+  Actor(@JsonProperty("id") String id,
+        @JsonProperty("account") String account,
+        @JsonProperty("jti") String jti,
+        @JsonProperty("userAgent") String userAgent,
+        @JsonProperty("ip") String ip) {
     this.id = id;
     this.account = account;
     this.jti = jti;

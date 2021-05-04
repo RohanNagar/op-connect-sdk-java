@@ -19,12 +19,12 @@ public class APIRequest {
   private final Resource resource;
 
   @JsonCreator
-  public APIRequest(@JsonProperty("requestId") String requestId,
-                    @JsonProperty("timestamp") Instant timestamp,
-                    @JsonProperty("action") APIRequestAction action,
-                    @JsonProperty("result") APIRequestResult result,
-                    @JsonProperty("actor") Actor actor,
-                    @JsonProperty("resource") Resource resource) {
+  APIRequest(@JsonProperty("requestId") String requestId,
+             @JsonProperty("timestamp") Instant timestamp,
+             @JsonProperty("action") APIRequestAction action,
+             @JsonProperty("result") APIRequestResult result,
+             @JsonProperty("actor") Actor actor,
+             @JsonProperty("resource") Resource resource) {
     this.requestId = requestId;
     this.timestamp = timestamp;
     this.action = action;

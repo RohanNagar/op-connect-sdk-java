@@ -18,10 +18,10 @@ public class Resource {
   private final Integer itemVersion;
 
   @JsonCreator
-  public Resource(@JsonProperty("type") ResourceType type,
-                  @JsonProperty("vault") VaultId vault,
-                  @JsonProperty("item") ItemId item,
-                  @JsonProperty("itemVersion") Integer itemVersion) {
+  Resource(@JsonProperty("type") ResourceType type,
+           @JsonProperty("vault") VaultId vault,
+           @JsonProperty("item") ItemId item,
+           @JsonProperty("itemVersion") Integer itemVersion) {
     this.type = type;
     this.vault = vault;
     this.item = item;
