@@ -35,7 +35,7 @@ jobs:
         OP_CREDENTIALS: ${{ secrets.OP_CREDENTIALS }}
 
     - name: Start OPConnect Server
-      run: sudo docker-compose -f localhost/docker-compose.yaml up -d
+      run: sudo docker-compose -f local-connect/docker-compose.yaml up -d
 
     - name: Build with Maven
       run: mvn package jacoco:report
