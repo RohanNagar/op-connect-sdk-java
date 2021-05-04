@@ -136,15 +136,15 @@ class IntegrationTest {
   @Order(1)
   void shouldListTitleFilteredItemsUsingFilter() {
     List<Item> sampleItems = CLIENT
-        .listItems(VAULT_ID, Filter.title().contains("Sample").build()).join();
+        .listItems(VAULT_ID, Filter.title().contains("Sample")).join();
     assertEquals(CATEGORY_COUNT, sampleItems.size());
 
     List<Item> passwordItems = CLIENT
-        .listItems(VAULT_ID, Filter.title().equals("Sample Password").build()).join();
+        .listItems(VAULT_ID, Filter.title().equals("Sample Password")).join();
     assertEquals(1, passwordItems.size());
 
     List<Item> noItems = CLIENT
-        .listItems(VAULT_ID,Filter.title().equals("Not Exist").build()).join();
+        .listItems(VAULT_ID,Filter.title().equals("Not Exist")).join();
     assertEquals(0, noItems.size());
   }
 
@@ -233,7 +233,7 @@ class IntegrationTest {
     Thread.sleep(1000L);
 
     System.out.println(createdItemId);
-    System.out.println(CLIENT.listItems(VAULT_ID).join());
+    System.out.println(CLIENT.getItem(VAULT_ID, createdItemId).join());
 
     assertDoesNotThrow(() -> CLIENT.deleteItem(VAULT_ID, createdItemId).join());
   }

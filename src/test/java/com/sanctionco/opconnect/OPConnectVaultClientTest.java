@@ -1,5 +1,6 @@
 package com.sanctionco.opconnect;
 
+import com.sanctionco.opconnect.model.Filter;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
 
@@ -31,6 +32,9 @@ class OPConnectVaultClientTest {
 
     vaultClient.listItems("filter");
     verify(client, times(1)).listItems(eq("testId"), eq("filter"));
+
+    vaultClient.listItems(Filter.title().present());
+    verify(client, times(1)).listItems(eq("testId"), eq("title pr"));
 
     vaultClient.getItem("testItemId");
     verify(client, times(1)).getItem(eq("testId"), eq("testItemId"));

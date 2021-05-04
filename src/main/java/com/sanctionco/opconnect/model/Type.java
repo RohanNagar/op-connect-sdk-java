@@ -1,5 +1,7 @@
 package com.sanctionco.opconnect.model;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+
 public enum Type {
   STRING,
   EMAIL,
@@ -13,5 +15,8 @@ public enum Type {
   CREDIT_CARD_NUMBER,
   PHONE,
   ADDRESS,
-  GENDER
+  GENDER,
+
+  @JsonEnumDefaultValue
+  UNKNOWN
 }

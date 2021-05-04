@@ -21,14 +21,14 @@ public class Field {
   private final Double entropy;
 
   private Field(String id,
-               Purpose purpose,
-               Type type,
-               String label,
-               String value,
-               Boolean generate,
-               GeneratorRecipe recipe,
-               Section section,
-               Double entropy) {
+                Purpose purpose,
+                Type type,
+                String label,
+                String value,
+                Boolean generate,
+                GeneratorRecipe recipe,
+                Section section,
+                Double entropy) {
     this.id = id;
     this.purpose = purpose;
     this.type = type;

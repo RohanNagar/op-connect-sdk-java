@@ -1,5 +1,6 @@
 package com.sanctionco.opconnect;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -86,6 +87,7 @@ public class OPConnectClientBuilder {
 
     ObjectMapper mapper = new ObjectMapper();
     mapper.registerModule(new JavaTimeModule());
+    mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
 
     Retrofit retrofit = new Retrofit.Builder()
         .baseUrl(this.endpoint)
