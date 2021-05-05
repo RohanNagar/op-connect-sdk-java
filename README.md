@@ -23,7 +23,7 @@ Add this library as a dependency in your `pom.xml`:
 <dependency>
   <groupId>com.sanctionco.opconnect</groupId>
   <artifactId>opconnect-java</artifactId>
-  <version>0.2.2</version>
+  <version>0.3.0</version>
 </dependency>
 ```
 
@@ -103,7 +103,9 @@ Item itemToCreate = Item.builder()
     .withCategory(Category.LOGIN)
     .withVaultId("VAULTID")
     .withField(Field.username("myemail@test.com").build())
-    .withField(Field.password("testpassword").build())
+    .withField(Field.generatedPassword(
+        GeneratorRecipe.letters().ofLength(30)).build())
+    .withUrl(URL.primary("https://www.test.com"))
     .build();
     
 Item createdItem = client.createItem("VAULTID", itemToCreate).join();
@@ -115,7 +117,9 @@ Item itemToCreate = Item.builder()
     .withCategory(Category.LOGIN)
     .withVaultId("VAULTID")
     .withField(Field.username("myemail@test.com").build())
-    .withField(Field.generatedPassword().build())
+    .withField(Field.generatedPassword(
+        GeneratorRecipe.letters().ofLength(30)).build())
+    .withUrl(URL.primary("https://www.test.com"))
     .build();
     
 client.createItem("VAULTID", itemToCreate).whenComplete((item, throwable) -> {
