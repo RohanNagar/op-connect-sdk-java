@@ -4,7 +4,7 @@
 
   <groupId>com.sanctionco.opconnect</groupId>
   <artifactId>opconnect-java</artifactId>
-  <version>0.3.0</version>
+  <version>0.3.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>opconnect-java</name>
@@ -15,7 +15,7 @@
     <url>https://github.com/RohanNagar/op-connect-sdk-java</url>
     <connection>scm:git:git@github.com:RohanNagar/op-connect-sdk-java.git</connection>
     <developerConnection>scm:git:git@github.com:RohanNagar/op-connect-sdk-java.git</developerConnection>
-    <tag>v0.3.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <licenses>
