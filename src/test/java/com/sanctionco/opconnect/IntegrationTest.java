@@ -3,6 +3,7 @@ package com.sanctionco.opconnect;
 import com.sanctionco.opconnect.model.Category;
 import com.sanctionco.opconnect.model.Field;
 import com.sanctionco.opconnect.model.Filter;
+import com.sanctionco.opconnect.model.GeneratorRecipe;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Purpose;
 import com.sanctionco.opconnect.model.Section;
@@ -205,6 +206,7 @@ class IntegrationTest {
         .withCategory(Category.LOGIN)
         .withVaultId(VAULT_ID)
         .withField(Field.username("testuser").build())
+        .withField(Field.generatedPassword(GeneratorRecipe.letters().ofLength(30)).build())
         .withUrl(new URL("https://www.test.com", true))
         .build();
 

@@ -1,6 +1,7 @@
 package com.sanctionco.opconnect.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,12 +11,13 @@ import java.util.StringJoiner;
 /**
  * Represents a recipe for generating a password.
  */
-@JsonDeserialize(builder = GeneratorRecipe.Builder.class)
 public class GeneratorRecipe {
   private final Integer length;
   private final List<CharacterSet> characterSets;
 
-  GeneratorRecipe(Integer length, List<CharacterSet> characterSets) {
+  @JsonCreator
+  GeneratorRecipe(@JsonProperty("length") Integer length,
+                  @JsonProperty("characterSets") List<CharacterSet> characterSets) {
     this.length = length;
     this.characterSets = Collections.unmodifiableList(characterSets);
   }
