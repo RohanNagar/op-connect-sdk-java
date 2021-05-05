@@ -1,5 +1,8 @@
 package com.sanctionco.opconnect.model;
 
+import java.util.Objects;
+import java.util.StringJoiner;
+
 /**
  * Represents a title filter that can be used to filter
  * items server-side.
@@ -54,6 +57,26 @@ public class Filter {
    */
   public Filter or(Filter other) {
     return new Filter(this, null, other);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Filter filter1 = (Filter) o;
+    return Objects.equals(filter, filter1.filter);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filter);
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", Filter.class.getSimpleName() + "[", "]")
+        .add("filter='" + filter + "'")
+        .toString();
   }
 
   /**

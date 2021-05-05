@@ -207,7 +207,7 @@ class IntegrationTest {
         .withVaultId(VAULT_ID)
         .withField(Field.username("testuser").build())
         .withField(Field.generatedPassword(GeneratorRecipe.letters().ofLength(30)).build())
-        .withUrl(new URL("https://www.test.com", true))
+        .withUrl(URL.primary("https://www.test.com"))
         .build();
 
     Item created = CLIENT.createItem(VAULT_ID, item).join();

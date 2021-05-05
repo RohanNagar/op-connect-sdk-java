@@ -2,7 +2,9 @@ package com.sanctionco.opconnect.model;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class FilterTest {
 
@@ -86,5 +88,28 @@ class FilterTest {
 
     assertEquals("(title co \"test\" and (title eq \"other\" or title sw \"te\"))",
         filter.getFilter());
+  }
+
+  @Test
+  void hashCodeAndEqualsShouldWork() {
+    Filter filter = Filter.title().equals("test");
+    Filter sameFilter = Filter.title().equals("test");
+    Filter diffOperation = Filter.title().contains("test");
+    Filter diffValue = Filter.title().equals("diff");
+
+    assertAll("Equals and hashcode works for same properties",
+        () -> assertEquals(filter.hashCode(), sameFilter.hashCode()),
+        () -> assertEquals(filter, sameFilter),
+        () -> assertEquals(filter.toString(), sameFilter.toString()));
+
+    assertAll("Equals and hashcode works for different operation property",
+        () -> assertNotEquals(filter.hashCode(), diffOperation.hashCode()),
+        () -> assertNotEquals(filter, diffOperation),
+        () -> assertNotEquals(filter.toString(), diffOperation.toString()));
+
+    assertAll("Equals and hashcode works for different value property",
+        () -> assertNotEquals(filter.hashCode(), diffValue.hashCode()),
+        () -> assertNotEquals(filter, diffValue),
+        () -> assertNotEquals(filter.toString(), diffValue.toString()));
   }
 }

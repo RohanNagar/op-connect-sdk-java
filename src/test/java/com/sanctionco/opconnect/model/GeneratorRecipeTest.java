@@ -3,11 +3,14 @@ package com.sanctionco.opconnect.model;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GeneratorRecipeTest {
@@ -42,5 +45,28 @@ class GeneratorRecipeTest {
         Arguments.of(
             GeneratorRecipe.withAllowedCharacters(CharacterSet.digitsAndSymbols()).ofLength(12),
             CharacterSet.digitsAndSymbols()));
+  }
+
+  @Test
+  void hashCodeAndEqualsShouldWork() {
+    GeneratorRecipe recipe = GeneratorRecipe.letters().ofLength(10);
+    GeneratorRecipe sameRecipe = GeneratorRecipe.letters().ofLength(10);
+    GeneratorRecipe diffLength = GeneratorRecipe.letters().ofLength(15);
+    GeneratorRecipe diffCharacters = GeneratorRecipe.symbols().ofLength(10);
+
+    assertAll("Equals and hashcode works for same properties",
+        () -> assertEquals(recipe.hashCode(), sameRecipe.hashCode()),
+        () -> assertEquals(recipe, sameRecipe),
+        () -> assertEquals(recipe.toString(), sameRecipe.toString()));
+
+    assertAll("Equals and hashcode works for different length property",
+        () -> assertNotEquals(recipe.hashCode(), diffLength.hashCode()),
+        () -> assertNotEquals(recipe, diffLength),
+        () -> assertNotEquals(recipe.toString(), diffLength.toString()));
+
+    assertAll("Equals and hashcode works for different characterSet property",
+        () -> assertNotEquals(recipe.hashCode(), diffCharacters.hashCode()),
+        () -> assertNotEquals(recipe, diffCharacters),
+        () -> assertNotEquals(recipe.toString(), diffCharacters.toString()));
   }
 }

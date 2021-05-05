@@ -6,22 +6,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Represents a URL contained in an item.
+ */
 public class URL {
   private final String url;
   private final Boolean primary;
 
   @JsonCreator
-  public URL(@JsonProperty("href") String url,
-             @JsonProperty("primary") Boolean primary) {
+  URL(@JsonProperty("href") String url,
+      @JsonProperty("primary") Boolean primary) {
     this.url = url;
     this.primary = primary;
   }
 
+  /**
+   * Get the actual string URL.
+   *
+   * @return the string URL
+   */
   @JsonProperty("href")
   public String getUrl() {
     return url;
   }
 
+  /**
+   * Get whether this URL is a primary URL address or not.
+   *
+   * @return true if this URL is primary, false otherwise
+   */
   public Boolean getPrimary() {
     return primary;
   }
@@ -45,5 +58,25 @@ public class URL {
         .add("url='" + url + "'")
         .add("primary=" + primary)
         .toString();
+  }
+
+  /**
+   * Create a new primary URL from the given string.
+   *
+   * @param url the string URL
+   * @return a new instance of {@code URL}
+   */
+  public static URL primary(String url) {
+    return new URL(url, true);
+  }
+
+  /**
+   * Create a new non-primary URL from the given string.
+   *
+   * @param url the string URL
+   * @return a new instance of {@code URL}
+   */
+  public static URL standard(String url) {
+    return new URL(url, false);
   }
 }

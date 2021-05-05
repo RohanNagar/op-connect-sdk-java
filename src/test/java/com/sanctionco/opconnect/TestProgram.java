@@ -61,7 +61,7 @@ public class TestProgram {
         .withCategory(Category.LOGIN)
         .withVault(vault)
         .withField(Field.username("myname").build())
-        .withUrl(new URL("https://www.test.com", true))
+        .withUrl(URL.primary("https://www.test.com"))
         .build();
     System.out.println("Creating a new item: " + createdItem);
     Item created = vaultClient.createItem(createdItem).join();
