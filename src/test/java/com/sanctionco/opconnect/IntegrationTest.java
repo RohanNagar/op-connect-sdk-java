@@ -129,6 +129,10 @@ class IntegrationTest {
     List<Item> passwordItems = CLIENT.listItems(VAULT_ID, "title eq \"Sample Password\"").join();
     assertEquals(1, passwordItems.size());
 
+    List<Item> passwordAndCreditCard = CLIENT
+        .listItems(VAULT_ID, "title eq \"Sample Password\" or title co \"Credit\"").join();
+    assertEquals(2, passwordAndCreditCard.size());
+
     List<Item> noItems = CLIENT.listItems(VAULT_ID, "title eq \"Not Exist\"").join();
     assertEquals(0, noItems.size());
   }
@@ -143,6 +147,13 @@ class IntegrationTest {
     List<Item> passwordItems = CLIENT
         .listItems(VAULT_ID, Filter.title().equals("Sample Password")).join();
     assertEquals(1, passwordItems.size());
+
+    List<Item> passwordAndCreditCard = CLIENT
+        .listItems(VAULT_ID, Filter.title()
+            .equals("Sample Password")
+            .or(Filter.title().contains("Credit")))
+        .join();
+    assertEquals(2, passwordAndCreditCard.size());
 
     List<Item> noItems = CLIENT
         .listItems(VAULT_ID,Filter.title().equals("Not Exist")).join();
@@ -217,7 +228,7 @@ class IntegrationTest {
     assertAll("Created Item is as expected",
         () -> assertEquals("Integration Test Created Login", created.getTitle()),
         () -> assertEquals(Category.LOGIN, created.getCategory()),
-        () -> assertEquals(3, created.getFields().size()),
+        () -> assertEquals(4, created.getFields().size()),
         () -> assertEquals(Purpose.USERNAME, created.getFields().get(0).getPurpose()),
         () -> assertEquals("testuser", created.getFields().get(0).getValue()),
         () -> assertEquals(1, created.getUrls().size()),
