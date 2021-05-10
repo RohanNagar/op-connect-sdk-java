@@ -23,9 +23,16 @@ Add this library as a dependency in your `pom.xml`:
 <dependency>
   <groupId>com.sanctionco.opconnect</groupId>
   <artifactId>opconnect-java</artifactId>
-  <version>0.3.0</version>
+  <version>0.3.1</version>
 </dependency>
 ```
+
+## Setup
+
+Before you can use the 1Password Connect API, make sure that you follow
+step 1 and 2 of the
+[1Password Secrets Automation Setup Guide](https://support.1password.com/secrets-automation/)
+in order to set up a local 1Password Connect server with Docker or Kubernetes.
 
 ## Usage
 
