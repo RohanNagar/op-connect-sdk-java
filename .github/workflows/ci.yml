@@ -1,4 +1,5 @@
 name: CI
+concurrency: integration_test
 
 on:
   push:
