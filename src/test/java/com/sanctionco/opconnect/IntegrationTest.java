@@ -228,7 +228,7 @@ class IntegrationTest {
     assertAll("Created Item is as expected",
         () -> assertEquals("Integration Test Created Login", created.getTitle()),
         () -> assertEquals(Category.LOGIN, created.getCategory()),
-        () -> assertEquals(4, created.getFields().size()),
+        () -> assertEquals(3, created.getFields().size()),
         () -> assertEquals(Purpose.USERNAME, created.getFields().get(0).getPurpose()),
         () -> assertEquals("testuser", created.getFields().get(0).getValue()),
         () -> assertEquals(1, created.getUrls().size()),
