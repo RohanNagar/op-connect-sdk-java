@@ -84,7 +84,7 @@ class IntegrationTest {
 
     HttpException httpResponse = (HttpException) e.getCause();
 
-    assertEquals(404, httpResponse.code());
+    assertEquals(403, httpResponse.code());
   }
 
   @Test
