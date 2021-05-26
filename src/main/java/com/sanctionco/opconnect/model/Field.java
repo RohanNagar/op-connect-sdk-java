@@ -118,6 +118,10 @@ public class Field {
         .withRecipe(recipe);
   }
 
+  public static Builder labeled(String label) {
+    return builder().withLabel(label);
+  }
+
   public static Builder builder() {
     return new Builder();
   }

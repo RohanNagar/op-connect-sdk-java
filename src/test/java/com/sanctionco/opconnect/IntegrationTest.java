@@ -176,7 +176,6 @@ class IntegrationTest {
   @Test
   void shouldGetLoginItemDetails() {
     Item item = CLIENT.getItem(VAULT_ID, LOGIN_ITEM_ID).join();
-    System.out.println(item);
 
     assertAll("The item properties are as expected",
         () -> assertEquals("Sample Login", item.getTitle()),
@@ -213,8 +212,7 @@ class IntegrationTest {
   @Test
   @Order(2)
   void shouldCreateItem() {
-    Item item = Item.builder().withTitle("Integration Test Created Login")
-        .withCategory(Category.LOGIN)
+    Item item = Item.login().withTitle("Integration Test Created Login")
         .withVaultId(VAULT_ID)
         .withField(Field.username("testuser").build())
         .withField(Field.generatedPassword(GeneratorRecipe.letters().ofLength(30)).build())
@@ -241,8 +239,8 @@ class IntegrationTest {
   void shouldPatchItem() throws Exception {
     if (createdItemId == null) fail("The createItem test needs to run before patchItem");
 
-    // Wait for .5 second in order to make sure the created item exists
-    Thread.sleep(500L);
+    // Wait for .75 second in order to make sure the created item exists
+    Thread.sleep(750L);
 
     // Get the item first
     Item created = CLIENT.getItem(VAULT_ID, createdItemId).join();
@@ -266,8 +264,8 @@ class IntegrationTest {
   void shouldPatchWithMultipleChanges() throws Exception {
     if (createdItemId == null) fail("The createItem test needs to run before patchItem");
 
-    // Wait for .5 second in order to make sure the created item exists
-    Thread.sleep(500L);
+    // Wait in order to make sure the created item exists
+    Thread.sleep(400L);
 
     // Get the item first
     Item created = CLIENT.getItem(VAULT_ID, createdItemId).join();
@@ -275,8 +273,7 @@ class IntegrationTest {
     String usernameFieldId = created.getFields().get(0).getId();
     Field updatedUsername = Field.username("patchTwo").build();
 
-    Field newField = Field.builder()
-        .withLabel("multiPatchLabel")
+    Field newField = Field.labeled("multiPatchLabel")
         .withType(Type.STRING)
         .withValue("patching")
         .build();
@@ -304,9 +301,8 @@ class IntegrationTest {
 
     Thread.sleep(400L);
 
-    Item replacement = Item.builder().withTitle("Replaced Integration Test Created Login")
+    Item replacement = Item.login().withTitle("Replaced Integration Test Created Login")
         .withId(createdItemId)
-        .withCategory(Category.LOGIN)
         .withVaultId(VAULT_ID)
         .withField(Field.username("replacementuser").build())
         .withField(Field.generatedPassword(GeneratorRecipe.letters().ofLength(30)).build())
