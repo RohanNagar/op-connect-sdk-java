@@ -6,7 +6,7 @@ import com.sanctionco.opconnect.model.Patch;
 import com.sanctionco.opconnect.model.Vault;
 import com.sanctionco.opconnect.model.apiactivity.APIRequest;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -133,18 +133,18 @@ public interface OPConnectClient {
                                     @Body List<Patch> patches);
 
   /**
-   * Applies an add, remove, or replace operation on an item or the fields of an item.
+   * Applies one or more of add, remove, or replace operation on an item or the fields of an item.
    * Uses the <a href="https://tools.ietf.org/html/rfc6902">RFC6902 JSON Patch</a>
    * document standard.
    *
    * @param vaultUUID the id of the vault
    * @param itemUUID the id of the item to patch
-   * @param patch a patch to apply to the item
+   * @param patches one or more patches to apply to the item
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with
    *         the updated item
    */
-  default CompletableFuture<Item> patchItem(String vaultUUID, String itemUUID, Patch patch) {
-    return patchItem(vaultUUID, itemUUID, Collections.singletonList(patch));
+  default CompletableFuture<Item> patchItem(String vaultUUID, String itemUUID, Patch... patches) {
+    return patchItem(vaultUUID, itemUUID, Arrays.asList(patches));
   }
 
   /**

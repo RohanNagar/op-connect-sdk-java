@@ -5,8 +5,10 @@ import com.sanctionco.opconnect.model.Field;
 import com.sanctionco.opconnect.model.Filter;
 import com.sanctionco.opconnect.model.GeneratorRecipe;
 import com.sanctionco.opconnect.model.Item;
+import com.sanctionco.opconnect.model.Patch;
 import com.sanctionco.opconnect.model.Purpose;
 import com.sanctionco.opconnect.model.Section;
+import com.sanctionco.opconnect.model.Type;
 import com.sanctionco.opconnect.model.URL;
 import com.sanctionco.opconnect.model.Vault;
 import com.sanctionco.opconnect.model.apiactivity.APIRequest;
@@ -19,7 +21,6 @@ import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -211,7 +212,6 @@ class IntegrationTest {
 
   @Test
   @Order(2)
-  @Disabled
   void shouldCreateItem() {
     Item item = Item.builder().withTitle("Integration Test Created Login")
         .withCategory(Category.LOGIN)
@@ -238,15 +238,102 @@ class IntegrationTest {
 
   @Test
   @Order(3)
-  @Disabled
+  void shouldPatchItem() throws Exception {
+    if (createdItemId == null) fail("The createItem test needs to run before patchItem");
+
+    // Wait for .5 second in order to make sure the created item exists
+    Thread.sleep(500L);
+
+    // Get the item first
+    Item created = CLIENT.getItem(VAULT_ID, createdItemId).join();
+    String usernameFieldId = created.getFields().get(0).getId();
+    Field updatedField = Field.username("patchOne").build();
+
+    Item patched = CLIENT.patchItem(VAULT_ID, createdItemId,
+        Patch.replace()
+            .withValue(updatedField)
+            .withPath("/fields/" + usernameFieldId)
+            .build()).join();
+
+    assertAll(
+        () -> assertEquals("Integration Test Created Login", patched.getTitle()),
+        () -> assertEquals(Purpose.USERNAME, patched.getFields().get(0).getPurpose()),
+        () -> assertEquals("patchOne", patched.getFields().get(0).getValue()));
+  }
+
+  @Test
+  @Order(4)
+  void shouldPatchWithMultipleChanges() throws Exception {
+    if (createdItemId == null) fail("The createItem test needs to run before patchItem");
+
+    // Wait for .5 second in order to make sure the created item exists
+    Thread.sleep(500L);
+
+    // Get the item first
+    Item created = CLIENT.getItem(VAULT_ID, createdItemId).join();
+
+    String usernameFieldId = created.getFields().get(0).getId();
+    Field updatedUsername = Field.username("patchTwo").build();
+
+    Field newField = Field.builder()
+        .withLabel("multiPatchLabel")
+        .withType(Type.STRING)
+        .withValue("patching")
+        .build();
+
+    Item patched = CLIENT.patchItem(VAULT_ID, createdItemId,
+        Patch.add()
+            .withValue(newField)
+            .withPath("/fields").build(),
+        Patch.replace()
+            .withValue(updatedUsername)
+            .withPath("/fields/" + usernameFieldId).build())
+        .join();
+
+    assertAll(
+        () -> assertEquals("Integration Test Created Login", patched.getTitle()),
+        () -> assertEquals(Purpose.USERNAME, patched.getFields().get(0).getPurpose()),
+        () -> assertEquals("patchTwo", patched.getFields().get(0).getValue()),
+        () -> assertEquals(created.getFields().size() + 1, patched.getFields().size()));
+  }
+
+  @Test
+  @Order(5)
+  void shouldReplaceItem() throws Exception {
+    if (createdItemId == null) fail("The createItem test needs to run before replaceItem");
+
+    Thread.sleep(400L);
+
+    Item replacement = Item.builder().withTitle("Replaced Integration Test Created Login")
+        .withId(createdItemId)
+        .withCategory(Category.LOGIN)
+        .withVaultId(VAULT_ID)
+        .withField(Field.username("replacementuser").build())
+        .withField(Field.generatedPassword(GeneratorRecipe.letters().ofLength(30)).build())
+        .withUrl(URL.primary("https://www.test.com"))
+        .build();
+
+    Item replaced = CLIENT.replaceItem(VAULT_ID, createdItemId, replacement).join();
+
+    assertAll("Replaced Item is as expected",
+        () -> assertEquals("Replaced Integration Test Created Login", replaced.getTitle()),
+        () -> assertEquals(createdItemId, replaced.getId()),
+        () -> assertEquals(Category.LOGIN, replaced.getCategory()),
+        () -> assertEquals(3, replaced.getFields().size()),
+        () -> assertEquals(Purpose.USERNAME, replaced.getFields().get(0).getPurpose()),
+        () -> assertEquals("replacementuser", replaced.getFields().get(0).getValue()),
+        () -> assertEquals(1, replaced.getUrls().size()),
+        () -> assertEquals("https://www.test.com", replaced.getUrls().get(0).getUrl())
+    );
+  }
+
+  @Test
+  @Order(6)
   void shouldDeleteItem() throws Exception {
     if (createdItemId == null) fail("The createItem test needs to run before deleteItem");
 
-    // Wait for 1 second in order to make sure the created item exists
-    Thread.sleep(1000L);
-
-    System.out.println(createdItemId);
-    System.out.println(CLIENT.getItem(VAULT_ID, createdItemId).join());
+    // Deleting too soon after creation/update can fail
+    Thread.sleep(400L);
 
     assertDoesNotThrow(() -> CLIENT.deleteItem(VAULT_ID, createdItemId).join());
   }
