@@ -216,3 +216,27 @@ client.listAPIActivity().whenComplete((requests, throwable) -> {
   // requests variable contains the list of requests
 });
 ```
+
+### Get Health Details
+
+```java
+ConnectServer serverHealth = client.health().join();
+```
+
+```java
+client.health().whenComplete((serverHealth, throwable) -> {
+  // serverHealth variable contains the server health details
+});
+```
+
+### Heartbeat
+
+```java
+client.heartbeat().join(); // throws exception if heartbeat fails
+```
+
+```java
+client.heartbeat().exceptionally(throwable -> {
+  // execution reaches here if heartbeat failed
+});
+```
