@@ -12,6 +12,7 @@ import com.sanctionco.opconnect.model.Type;
 import com.sanctionco.opconnect.model.URL;
 import com.sanctionco.opconnect.model.Vault;
 import com.sanctionco.opconnect.model.apiactivity.APIRequest;
+import com.sanctionco.opconnect.model.health.ConnectServer;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -369,5 +370,18 @@ class IntegrationTest {
         () -> assertEquals(
             limitedRequests.get(3).getRequestId(),
             limitedOffsetRequests.get(1).getRequestId()));
+  }
+
+  @Test
+  void shouldGetHealthStatus() {
+    ConnectServer server = CLIENT.health().join();
+
+    assertNotNull(server);
+    assertEquals("1Password Connect API", server.getName());
+  }
+
+  @Test
+  void shouldHeartbeat() {
+    assertDoesNotThrow(() -> CLIENT.heartbeat().join());
   }
 }

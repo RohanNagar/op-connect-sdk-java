@@ -5,6 +5,7 @@ import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
 import com.sanctionco.opconnect.model.Vault;
 import com.sanctionco.opconnect.model.apiactivity.APIRequest;
+import com.sanctionco.opconnect.model.health.ConnectServer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -190,6 +191,26 @@ public interface OPConnectClient {
   @GET("v1/activity")
   CompletableFuture<List<APIRequest>> listAPIActivity(@Query("limit") Integer limit,
                                                       @Query("offset") Integer offset);
+
+  /**
+   * Retrieves the health of the 1Password connect server.
+   *
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with
+   *         a {@link ConnectServer} object that describes the server and its health
+   */
+  @GET("health")
+  CompletableFuture<ConnectServer> health();
+
+  /**
+   * Checks the heartbeat of the 1Password connect server, completing exceptionally
+   * if the heartbeat fails.
+   *
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed
+   *         successfully if the server has a healthy heartbeat, or completed exceptionally
+   *         otherwise
+   */
+  @GET("heartbeat")
+  CompletableFuture<Void> heartbeat();
 
   /**
    * Provides a convenient wrapper client that interacts with a specific vault.
