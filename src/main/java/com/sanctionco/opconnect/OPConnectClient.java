@@ -245,6 +245,20 @@ public interface OPConnectClient {
                                   @Query("inline_content") boolean inlineContent);
 
   /**
+   * Get the content of a file.
+   *
+   * @param vaultUUID the id of the vault
+   * @param itemUUID the id of the item that the file is attached to
+   * @param fileUUID the id of the file
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         file contents
+   */
+  @GET("/v1/vaults/{vaultId}/items/{itemId}/files/{fileId}/content")
+  CompletableFuture<String> getFileContent(@Path("vaultId") String vaultUUID,
+                                           @Path("itemId") String itemUUID,
+                                           @Path("fileId") String fileUUID);
+
+  /**
    * Provides a list of recent API activity.
    *
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with

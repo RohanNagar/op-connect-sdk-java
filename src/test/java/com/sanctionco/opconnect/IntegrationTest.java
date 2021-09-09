@@ -265,6 +265,13 @@ class IntegrationTest {
     assertEquals("Test\n", contentFile.getDecodedContent());
   }
 
+  @Test
+  void shouldGetFileContent() {
+    String content = CLIENT.getFileContent(VAULT_ID, DOCUMENT_ITEM_ID, DOCUMENT_FILE_ID).join();
+
+    assertEquals("Test\n", content);
+  }
+
   @ParameterizedTest
   @EnumSource(mode = EnumSource.Mode.EXCLUDE, names = { "CUSTOM" })
   void shouldGetItemDetailsForEachCategory(Category category) {

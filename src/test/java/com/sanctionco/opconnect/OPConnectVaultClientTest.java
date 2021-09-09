@@ -65,5 +65,8 @@ class OPConnectVaultClientTest {
 
     vaultClient.getFile("itemId", "fileId", true);
     verify(client).getFile(eq("testId"), eq("itemId"), eq("fileId"), eq(true));
+
+    vaultClient.getFileContent("itemId", "fileId");
+    verify(client).getFileContent(eq("testId"), eq("itemId"), eq("fileId"));
   }
 }

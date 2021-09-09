@@ -195,4 +195,16 @@ public class OPConnectVaultClient {
   public CompletableFuture<File> getFile(String itemUUID, String fileUUID, boolean inlineContent) {
     return client.getFile(vaultUUID, itemUUID, fileUUID, inlineContent);
   }
+
+  /**
+   * Get the content of a file.
+   *
+   * @param itemUUID the id of the item that the file is attached to
+   * @param fileUUID the id of the file
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         file contents
+   */
+  public CompletableFuture<String> getFileContent(String itemUUID, String fileUUID) {
+    return client.getFileContent(vaultUUID, itemUUID, fileUUID);
+  }
 }
