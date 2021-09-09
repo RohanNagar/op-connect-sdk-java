@@ -342,7 +342,7 @@ class IntegrationTest {
     assertAll("Returned APIRequest list is reasonable",
         () -> assertNotNull(requests),
         () -> assertNotEquals(0, requests.size()),
-        () -> assertEquals("FXOLE7IFLBCP7LV4AKGKRYXLYU", requests.get(0).getActor().getId()),
+        () -> assertEquals("HJGVEL46XVGGJFJQXYCADPF5RM", requests.get(0).getActor().getId()),
         () -> assertEquals("5R6XDPQ2B5GW3GLDTNKVH7BN6E", requests.get(0).getActor().getAccount()));
 
     // Limit to last 5
@@ -351,7 +351,7 @@ class IntegrationTest {
     assertAll("Returned limited APIRequest list is reasonable",
         () -> assertNotNull(limitedRequests),
         () -> assertEquals(5, limitedRequests.size()),
-        () -> assertEquals("FXOLE7IFLBCP7LV4AKGKRYXLYU",
+        () -> assertEquals("HJGVEL46XVGGJFJQXYCADPF5RM",
             limitedRequests.get(0).getActor().getId()),
         () -> assertEquals("5R6XDPQ2B5GW3GLDTNKVH7BN6E",
             limitedRequests.get(0).getActor().getAccount()));

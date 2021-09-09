@@ -27,6 +27,7 @@ public class Item {
   private final String lastEditedBy;
   private final List<Section> sections;
   private final List<Field> fields;
+  private final List<File> files;
 
   private Item(Builder builder) {
     this.id = builder.id;
@@ -43,6 +44,7 @@ public class Item {
     this.lastEditedBy = builder.lastEditedBy;
     this.sections = builder.sections;
     this.fields = builder.fields;
+    this.files = builder.files;
   }
 
   /**
@@ -118,7 +120,7 @@ public class Item {
   }
 
   /**
-   * Get whether or not this item is in the trash.
+   * Get whether this item is in the trash.
    *
    * @return true if this item is in the trash, false otherwise
    */
@@ -144,6 +146,10 @@ public class Item {
 
   public List<Field> getFields() {
     return fields;
+  }
+
+  public List<File> getFiles() {
+    return files;
   }
 
   @Override
@@ -206,6 +212,7 @@ public class Item {
     private String lastEditedBy;
     private List<Section> sections = new ArrayList<>();
     private List<Field> fields = new ArrayList<>();
+    private List<File> files = new ArrayList<>();
 
     public Builder fromItem(Item item) {
       this.id = item.id;
@@ -222,6 +229,7 @@ public class Item {
       this.lastEditedBy = item.lastEditedBy;
       this.sections = item.sections;
       this.fields = item.fields;
+      this.files = item.files;
 
       return this;
     }
@@ -323,6 +331,16 @@ public class Item {
 
     public Builder withField(Field field) {
       this.fields.add(field);
+      return this;
+    }
+
+    public Builder withFiles(List<File> files) {
+      this.files.addAll(files);
+      return this;
+    }
+
+    public Builder withFile(File file) {
+      this.files.add(file);
       return this;
     }
 
