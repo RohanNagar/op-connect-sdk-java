@@ -4,13 +4,12 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Represents a title filter that can be used to filter
- * items server-side.
+ * Represents SCIM-style filter that can be used to filter list requests server-side.
  */
 public class Filter {
   private final String filter;
 
-  Filter(Builder builder) {
+  private Filter(Builder builder) {
     if (builder.operator.equals(Operator.PRESENT)) {
       filter = String.format("%s pr", builder.property);
     } else {
@@ -19,7 +18,7 @@ public class Filter {
     }
   }
 
-  Filter(Filter other, Filter and, Filter or) {
+  private Filter(Filter other, Filter and, Filter or) {
     if (and == null && or == null) {
       filter = other.filter;
     } else if (and != null) {
@@ -40,7 +39,7 @@ public class Filter {
 
   /**
    * Create a new {@code Filter}, concatenating the provided
-   * filter using the `and` operator.
+   * filter using the {@code and} operator.
    *
    * @param other the other filter to concatenate to this one
    * @return the new filter
@@ -51,7 +50,7 @@ public class Filter {
 
   /**
    * Create a new {@code Filter}, concatenating the provided
-   * filter using the `or` operator.
+   * filter using the {@code or} operator.
    *
    * @param other the other filter to concatenate to this one
    * @return the new filter
@@ -108,6 +107,9 @@ public class Filter {
     return new Builder(property);
   }
 
+  /**
+   * The builder class used to build a new {@link Filter}.
+   */
   public static class Builder {
     private final String property;
     private Operator operator;
@@ -117,7 +119,7 @@ public class Filter {
       this.property = property;
     }
 
-    Filter withOpAndValue(Operator op, String value) {
+    private Filter withOpAndValue(Operator op, String value) {
       this.operator = op;
       this.value = value;
       return new Filter(this);
@@ -125,9 +127,9 @@ public class Filter {
 
     /**
      * Builds a new {@code Filter} with the 'eq' operator.
-     * Filters based on the title exactly matching the given value.
+     * Filters based on the property exactly matching the given value.
      *
-     * @param value the value that the title should be equal to
+     * @param value the value that the property should be equal to
      * @return the new {@code Filter}
      */
     public Filter equals(String value) {
@@ -136,9 +138,9 @@ public class Filter {
 
     /**
      * Builds a new {@code Filter} with the 'co' operator.
-     * Filters based on the title containing the given value.
+     * Filters based on the property containing the given value.
      *
-     * @param value the value that the title should contain
+     * @param value the value that the property should contain
      * @return the new {@code Filter}
      */
     public Filter contains(String value) {
@@ -147,9 +149,9 @@ public class Filter {
 
     /**
      * Builds a new {@code Filter} with the 'sw' operator.
-     * Filters based on the title starting with the given value.
+     * Filters based on the property starting with the given value.
      *
-     * @param value the value that the title should start with
+     * @param value the value that the property should start with
      * @return the new {@code Filter}
      */
     public Filter startsWith(String value) {
@@ -158,7 +160,7 @@ public class Filter {
 
     /**
      * Builds a new {@code Filter} with the 'pr' operator.
-     * Filters based on the title being present.
+     * Filters based on the property being present.
      *
      * @return the new {@code Filter}
      */
@@ -168,10 +170,10 @@ public class Filter {
 
     /**
      * Builds a new {@code Filter} with the 'gt' operator.
-     * Filters based on the title being alphanumerically greater than
+     * Filters based on the property being alphanumerically greater than
      * the given value.
      *
-     * @param value the value that the title should be greater than
+     * @param value the value that the property should be greater than
      * @return the new {@code Filter}
      */
     public Filter greaterThan(String value) {
@@ -180,10 +182,10 @@ public class Filter {
 
     /**
      * Builds a new {@code Filter} with the 'ge' operator.
-     * Filters based on the title being alphanumerically greater than
+     * Filters based on the property being alphanumerically greater than
      * or equal to the given value.
      *
-     * @param value the value that the title should be greater than or equal to
+     * @param value the value that the property should be greater than or equal to
      * @return the new {@code Filter}
      */
     public Filter greaterThanOrEqual(String value) {
@@ -192,10 +194,10 @@ public class Filter {
 
     /**
      * Builds a new {@code Filter} with the 'lt' operator.
-     * Filters based on the title being alphanumerically less than
+     * Filters based on the property being alphanumerically less than
      * the given value.
      *
-     * @param value the value that the title should be less than
+     * @param value the value that the property should be less than
      * @return the new {@code Filter}
      */
     public Filter lessThan(String value) {
@@ -204,10 +206,10 @@ public class Filter {
 
     /**
      * Builds a new {@code Filter} with the 'le' operator.
-     * Filters based on the title being alphanumerically less than
+     * Filters based on the property being alphanumerically less than
      * or equal to the given value.
      *
-     * @param value the value that the title should be less than or equal to
+     * @param value the value that the property should be less than or equal to
      * @return the new {@code Filter}
      */
     public Filter lessThanOrEqual(String value) {
@@ -215,7 +217,7 @@ public class Filter {
     }
   }
 
-  enum Operator {
+  private enum Operator {
     EQUALS("eq"),
     CONTAINS("co"),
     STARTS_WITH("sw"),

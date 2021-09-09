@@ -47,10 +47,16 @@ public class File {
     return name;
   }
 
+  /**
+   * Get the size of the file in bytes.
+   *
+   * @return the size of the file in bytes
+   */
   public int getSize() {
     return size;
   }
 
+  @JsonProperty("content_path")
   public String getContentPath() {
     return contentPath;
   }

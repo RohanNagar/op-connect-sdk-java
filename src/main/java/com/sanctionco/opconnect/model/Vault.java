@@ -18,18 +18,16 @@ public class Vault {
   private final Instant createdAt;
   private final Instant updatedAt;
 
-  public Vault(String id, String name, String description,
-               Integer attributeVersion, Integer contentVersion, Integer items,
-               String type, Instant createdAt, Instant updatedAt) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.attributeVersion = attributeVersion;
-    this.contentVersion = contentVersion;
-    this.items = items;
-    this.type = type;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+  public Vault(Builder builder) {
+    this.id = builder.id;
+    this.name = builder.name;
+    this.description = builder.description;
+    this.attributeVersion = builder.attributeVersion;
+    this.contentVersion = builder.contentVersion;
+    this.items = builder.items;
+    this.type = builder.type;
+    this.createdAt = builder.createdAt;
+    this.updatedAt = builder.updatedAt;
   }
 
   public String getId() {
@@ -157,9 +155,7 @@ public class Vault {
     }
 
     public Vault build() {
-      return new Vault(
-          id, name, description, attributeVersion, contentVersion,
-          items, type, createdAt, updatedAt);
+      return new Vault(this);
     }
   }
 }

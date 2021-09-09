@@ -91,6 +91,20 @@ class FilterTest {
   }
 
   @Test
+  void shouldBuildNameFilter() {
+    Filter filter = Filter.name().equals("test");
+
+    assertEquals("name eq \"test\"", filter.getFilter());
+  }
+
+  @Test
+  void shouldBuildAnyFilter() {
+    Filter filter = Filter.onProperty("label").equals("test");
+
+    assertEquals("label eq \"test\"", filter.getFilter());
+  }
+
+  @Test
   void hashCodeAndEqualsShouldWork() {
     Filter filter = Filter.title().equals("test");
     Filter sameFilter = Filter.title().equals("test");

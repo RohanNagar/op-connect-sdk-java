@@ -245,6 +245,47 @@ client.listFiles("VAULTID", "ITEMID", true)
     });
 ```
 
+### Get a File
+
+```java
+File file = client.getFile("VAULTID", "ITEMID", "FILEID").join();
+```
+
+```java
+client.getFile("VAULTID", "ITEMID", "FILEID")
+    .whenComplete((file, throwable) -> {
+      // file variable contains the file details
+    });
+```
+
+#### With Inline Content
+
+```java
+File file = client.getFile("VAULTID", "ITEMID", "FILEID", true).join();
+```
+
+```java
+client.getFile("VAULTID", "ITEMID", "FILEID", true)
+    .whenComplete((file, throwable) -> {
+      // file variable contains the file details
+    });
+```
+
+### Get the Content of a File
+
+```java
+String content = client
+    .getFileContent("VAULTID", "ITEMID", "FILEID")
+    .join();
+```
+
+```java
+client.getFileContent("VAULTID", "ITEMID", "FILEID")
+    .whenComplete((content, throwable) -> {
+      // content variable contains the file content
+    });
+```
+
 ### List API activity
 
 ```java
@@ -284,5 +325,17 @@ client.heartbeat().join(); // throws exception if heartbeat fails
 ```java
 client.heartbeat().exceptionally(throwable -> {
   // execution reaches here if heartbeat failed
+});
+```
+
+### Get Connect Server Metrics
+
+```java
+String metrics = client.metrics().join();
+```
+
+```java
+client.metrics().whenComplete((metrics, throwable) -> {
+  // metrics variable contains the metrics in text form
 });
 ```

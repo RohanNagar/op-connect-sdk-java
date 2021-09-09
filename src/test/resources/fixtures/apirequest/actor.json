@@ -1,0 +1,7 @@
+{
+  "id": "test-id",
+  "account": "test-account",
+  "jti": "test-jti",
+  "userAgent": "test-useragent",
+  "ip": "test-ip"
+}

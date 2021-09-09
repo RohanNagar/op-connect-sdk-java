@@ -7,9 +7,9 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Represents an actor (1Password connect server) that performed a {@link APIRequest}.
+ * Represents an actor (1Password connect server) that performed an {@link APIRequest}.
  *
- * <p>See <a href="https://support.1password.com/connect-api-reference/#apirequest-object">
+ * <p>See the <a href="https://support.1password.com/connect-api-reference/#apirequest-object">
  * APIRequest</a> documentation for more details.
  */
 public class Actor {
@@ -33,7 +33,7 @@ public class Actor {
   }
 
   /**
-   * Get the Connect server ID.
+   * Get the ID of the {@code Actor}.
    *
    * @return the id of the actor (connect sever)
    */
@@ -44,7 +44,7 @@ public class Actor {
   /**
    * Get the 1Password account ID.
    *
-   * @return the id of the 1Password account the request went to
+   * @return the id of the 1Password account the actor belongs to
    */
   public String getAccount() {
     return account;

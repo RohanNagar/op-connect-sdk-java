@@ -17,24 +17,16 @@ public class Field {
   private final Section section;
   private final Double entropy;
 
-  private Field(String id,
-                Purpose purpose,
-                Type type,
-                String label,
-                String value,
-                Boolean generate,
-                GeneratorRecipe recipe,
-                Section section,
-                Double entropy) {
-    this.id = id;
-    this.purpose = purpose;
-    this.type = type;
-    this.label = label;
-    this.value = value;
-    this.generate = generate;
-    this.recipe = recipe;
-    this.section = section;
-    this.entropy = entropy;
+  private Field(Builder builder) {
+    this.id = builder.id;
+    this.purpose = builder.purpose;
+    this.type = builder.type;
+    this.label = builder.label;
+    this.value = builder.value;
+    this.generate = builder.generate;
+    this.recipe = builder.recipe;
+    this.section = builder.section;
+    this.entropy = builder.entropy;
   }
 
   public String getId() {
@@ -183,7 +175,7 @@ public class Field {
     }
 
     public Field build() {
-      return new Field(id, purpose, type, label, value, generate, recipe, section, entropy);
+      return new Field(this);
     }
   }
 }
