@@ -147,6 +147,17 @@ public class OPConnectVaultClient {
    * List the files attached to the given item.
    *
    * @param itemUUID the id of the item to get files for
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         list of {@link File} objects
+   */
+  public CompletableFuture<List<File>> listFiles(String itemUUID) {
+    return client.listFiles(vaultUUID, itemUUID);
+  }
+
+  /**
+   * List the files attached to the given item.
+   *
+   * @param itemUUID the id of the item to get files for
    * @param inlineContent whether to include the base64 encoded file contents. The file size must
    *                      be less than OP_MAX_INLINE_FILE_SIZE_KB, or 100 kilobytes if the file
    *                      size isn't defined.
@@ -157,14 +168,31 @@ public class OPConnectVaultClient {
     return client.listFiles(vaultUUID, itemUUID, inlineContent);
   }
 
+
   /**
-   * List the files attached to the given item.
+   * Get the details of a file from the given item.
    *
-   * @param itemUUID the id of the item to get files for
+   * @param itemUUID the id of the item that the file is attached to
+   * @param fileUUID the id of the file
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
-   *         list of {@link File} objects
+   *         {@link File} details
    */
-  public CompletableFuture<List<File>> listFiles(String itemUUID) {
-    return client.listFiles(vaultUUID, itemUUID);
+  public CompletableFuture<File> getFile(String itemUUID, String fileUUID) {
+    return client.getFile(vaultUUID, itemUUID, fileUUID);
+  }
+
+  /**
+   * Get the details of a file from the given item.
+   *
+   * @param itemUUID the id of the item that the file is attached to
+   * @param fileUUID the id of the file
+   * @param inlineContent whether to include the base64 encoded file contents. The file size must
+   *                      be less than OP_MAX_INLINE_FILE_SIZE_KB, or 100 kilobytes if the file
+   *                      size isn't defined.
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         {@link File} details
+   */
+  public CompletableFuture<File> getFile(String itemUUID, String fileUUID, boolean inlineContent) {
+    return client.getFile(vaultUUID, itemUUID, fileUUID, inlineContent);
   }
 }

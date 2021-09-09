@@ -5,6 +5,8 @@ on:
   push:
     branches: [ master ]
     tags: '*'
+  schedule:
+    - cron: '0 10 * * *' # Run every day at 10:00 UTC
 
 jobs:
   build:

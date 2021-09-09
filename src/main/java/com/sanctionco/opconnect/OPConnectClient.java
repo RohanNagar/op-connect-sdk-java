@@ -213,6 +213,38 @@ public interface OPConnectClient {
                                           @Path("itemId") String itemUUID);
 
   /**
+   * Get the details of a file from the given item.
+   *
+   * @param vaultUUID the id of the vault
+   * @param itemUUID the id of the item that the file is attached to
+   * @param fileUUID the id of the file
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         {@link File} details
+   */
+  @GET("/v1/vaults/{vaultId}/items/{itemId}/files/{fileId}")
+  CompletableFuture<File> getFile(@Path("vaultId") String vaultUUID,
+                                  @Path("itemId") String itemUUID,
+                                  @Path("fileId") String fileUUID);
+
+  /**
+   * Get the details of a file from the given item.
+   *
+   * @param vaultUUID the id of the vault
+   * @param itemUUID the id of the item that the file is attached to
+   * @param fileUUID the id of the file
+   * @param inlineContent whether to include the base64 encoded file contents. The file size must
+   *                      be less than OP_MAX_INLINE_FILE_SIZE_KB, or 100 kilobytes if the file
+   *                      size isn't defined.
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         {@link File} details
+   */
+  @GET("/v1/vaults/{vaultId}/items/{itemId}/files/{fileId}")
+  CompletableFuture<File> getFile(@Path("vaultId") String vaultUUID,
+                                  @Path("itemId") String itemUUID,
+                                  @Path("fileId") String fileUUID,
+                                  @Query("inline_content") boolean inlineContent);
+
+  /**
    * Provides a list of recent API activity.
    *
    * @return a {@link CompletableFuture} is returned immediately and eventually completed with

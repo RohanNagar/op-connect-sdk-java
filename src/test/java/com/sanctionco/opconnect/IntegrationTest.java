@@ -59,6 +59,7 @@ class IntegrationTest {
   private static final String VAULT_ID = "5ve5wfpdu2kxxhj2jdozmes5re";
   private static final String LOGIN_ITEM_ID = "piy7k3izsuzafhypw6iddpwhqe";
   private static final String DOCUMENT_ITEM_ID = "ukg5hwis76syhwdgc6jqcyx4vq";
+  private static final String DOCUMENT_FILE_ID = "tf5sqssrufeevojd4urpmf4n3u";
   private static final Integer CATEGORY_COUNT = Category.values().length - 1;
   private static final List<Item> ALL_ITEMS = CLIENT.listItems(VAULT_ID).join();
 
@@ -248,6 +249,20 @@ class IntegrationTest {
     assertEquals("test.txt", files.get(0).getName());
     assertNotNull(files.get(0).getContent());
     assertEquals("Test\n", files.get(0).getDecodedContent());
+  }
+
+  @Test
+  void shouldGetFile() {
+    File file = CLIENT.getFile(VAULT_ID, DOCUMENT_ITEM_ID, DOCUMENT_FILE_ID).join();
+
+    assertEquals("test.txt", file.getName());
+
+    // Also be able to get content
+    File contentFile = CLIENT.getFile(VAULT_ID, DOCUMENT_ITEM_ID, DOCUMENT_FILE_ID, true).join();
+
+    assertEquals("test.txt", contentFile.getName());
+    assertNotNull(contentFile.getContent());
+    assertEquals("Test\n", contentFile.getDecodedContent());
   }
 
   @ParameterizedTest

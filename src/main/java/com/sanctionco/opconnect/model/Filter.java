@@ -101,6 +101,7 @@ public class Filter {
   /**
    * Create a new Filter builder on the given property.
    *
+   * @param property the property to filter on
    * @return a new {@code Filter.Builder}
    */
   public static Builder onProperty(String property) {
