@@ -3,6 +3,8 @@ package com.sanctionco.opconnect.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,10 +29,20 @@ public class File {
     this.section = builder.section;
   }
 
+  /**
+   * Get the unique ID of the file.
+   *
+   * @return the id of this file
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Get the name of the file.
+   *
+   * @return the name of this file
+   */
   public String getName() {
     return name;
   }
@@ -45,6 +57,12 @@ public class File {
 
   public String getContent() {
     return content;
+  }
+
+  public String getDecodedContent() {
+    return content == null
+        ? null
+        : new String(Base64.getDecoder().decode(content), StandardCharsets.UTF_8);
   }
 
   public Section getSection() {

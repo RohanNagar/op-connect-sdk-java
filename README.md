@@ -9,7 +9,7 @@
 
 An unofficial SDK for interacting with the
 [1Password Connect API](https://support.1password.com/connect-api-reference).
-Tested with the latest version of the 1Password Connect Server (v1.2.0).
+Tested with the latest version of the 1Password Connect Server (v1.3.1).
 
 **NOTE: Until version 1.0.0, any new release may contain breaking changes!**
 
@@ -199,6 +199,37 @@ client.patchItem("VAULTID", "ITEMID", Patch.remove().withPath("/title").build())
       // item variable contains the patched item
     });
 ```
+
+### List Files
+
+```java
+List<File> files = client
+    .listFiles("VAULTID", "ITEMID")
+    .join();
+```
+
+```java
+client.listFiles("VAULTID", "ITEMID")
+    .whenComplete((files, throwable) -> {
+      // files variable contains the list of files
+    });
+```
+
+#### With Inline Content
+
+```java
+List<File> files = client
+    .listFiles("VAULTID", "ITEMID", true)
+    .join();
+```
+
+```java
+client.listFiles("VAULTID", "ITEMID", true)
+    .whenComplete((files, throwable) -> {
+      // files variable contains the list of files
+    });
+```
+
 ### List API activity
 
 ```java

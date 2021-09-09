@@ -1,5 +1,6 @@
 package com.sanctionco.opconnect;
 
+import com.sanctionco.opconnect.model.File;
 import com.sanctionco.opconnect.model.Filter;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
@@ -159,6 +160,16 @@ public interface OPConnectClient {
   @DELETE("v1/vaults/{vaultId}/items/{itemId}")
   CompletableFuture<Void> deleteItem(@Path("vaultId") String vaultUUID,
                                      @Path("itemId") String itemUUID);
+
+
+  @GET("/v1/vaults/{vaultId}/items/{itemId}/files")
+  CompletableFuture<List<File>> listFiles(@Path("vaultId") String vaultUUID,
+                                          @Path("itemId") String itemUUID,
+                                          @Query("inline_content") boolean inlineContent);
+
+  @GET("/v1/vaults/{vaultId}/items/{itemId}/files")
+  CompletableFuture<List<File>> listFiles(@Path("vaultId") String vaultUUID,
+                                          @Path("itemId") String itemUUID);
 
   /**
    * Provides a list of recent API activity.

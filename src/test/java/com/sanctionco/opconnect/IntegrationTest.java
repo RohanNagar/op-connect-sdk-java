@@ -2,6 +2,7 @@ package com.sanctionco.opconnect;
 
 import com.sanctionco.opconnect.model.Category;
 import com.sanctionco.opconnect.model.Field;
+import com.sanctionco.opconnect.model.File;
 import com.sanctionco.opconnect.model.Filter;
 import com.sanctionco.opconnect.model.GeneratorRecipe;
 import com.sanctionco.opconnect.model.Item;
@@ -57,6 +58,7 @@ class IntegrationTest {
 
   private static final String VAULT_ID = "5ve5wfpdu2kxxhj2jdozmes5re";
   private static final String LOGIN_ITEM_ID = "piy7k3izsuzafhypw6iddpwhqe";
+  private static final String DOCUMENT_ITEM_ID = "ukg5hwis76syhwdgc6jqcyx4vq";
   private static final Integer CATEGORY_COUNT = Category.values().length - 1;
   private static final List<Item> ALL_ITEMS = CLIENT.listItems(VAULT_ID).join();
 
@@ -192,6 +194,22 @@ class IntegrationTest {
             new Section("Section_vdb57dmcdx6mej4wpu632j6pru", "Test Section One"))),
         () -> assertEquals(5, item.getFields().size())
     );
+  }
+
+  @Test
+  void shouldListFiles() {
+    List<File> files = CLIENT.listFiles(VAULT_ID, DOCUMENT_ITEM_ID).join();
+
+    assertEquals(1, files.size());
+    assertEquals("test.txt", files.get(0).getName());
+
+    // Also be able to get content
+    files = CLIENT.listFiles(VAULT_ID, DOCUMENT_ITEM_ID, true).join();
+
+    assertEquals(1, files.size());
+    assertEquals("test.txt", files.get(0).getName());
+    assertNotNull(files.get(0).getContent());
+    assertEquals("Test\n", files.get(0).getDecodedContent());
   }
 
   @ParameterizedTest
