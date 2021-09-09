@@ -1,5 +1,6 @@
 package com.sanctionco.opconnect;
 
+import com.sanctionco.opconnect.model.File;
 import com.sanctionco.opconnect.model.Filter;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
@@ -140,5 +141,30 @@ public class OPConnectVaultClient {
    */
   public CompletableFuture<Void> deleteItem(String itemUUID) {
     return client.deleteItem(vaultUUID, itemUUID);
+  }
+
+  /**
+   * List the files attached to the given item.
+   *
+   * @param itemUUID the id of the item to get files for
+   * @param inlineContent whether to include the base64 encoded file contents. The file size must
+   *                      be less than OP_MAX_INLINE_FILE_SIZE_KB, or 100 kilobytes if the file
+   *                      size isn't defined.
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         list of {@link File} objects
+   */
+  public CompletableFuture<List<File>> listFiles(String itemUUID, boolean inlineContent) {
+    return client.listFiles(vaultUUID, itemUUID, inlineContent);
+  }
+
+  /**
+   * List the files attached to the given item.
+   *
+   * @param itemUUID the id of the item to get files for
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         list of {@link File} objects
+   */
+  public CompletableFuture<List<File>> listFiles(String itemUUID) {
+    return client.listFiles(vaultUUID, itemUUID);
   }
 }

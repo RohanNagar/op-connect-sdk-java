@@ -80,6 +80,44 @@ class IntegrationTest {
   }
 
   @Test
+  void shouldListVaultsWithStringFilter() {
+    List<Vault> vaults = CLIENT.listVaults("name eq \"Integration Test\"").join();
+
+    assertEquals(1, vaults.size());
+
+    Vault vault = vaults.get(0);
+
+    assertAll("The vault properties are as expected",
+        () -> assertEquals(VAULT_ID, vault.getId()),
+        () -> assertEquals("Integration Test", vault.getName()),
+        () -> assertEquals("Java SDK Integration Tests", vault.getDescription()),
+        () -> assertTrue(vault.getCreatedAt().isBefore(Instant.now())));
+
+    List<Vault> noVaults = CLIENT.listVaults("name eq \"Nonexistent\"").join();
+
+    assertEquals(0, noVaults.size());
+  }
+
+  @Test
+  void shouldListVaultsWithFilterObject() {
+    List<Vault> vaults = CLIENT.listVaults(Filter.name().equals("Integration Test")).join();
+
+    assertEquals(1, vaults.size());
+
+    Vault vault = vaults.get(0);
+
+    assertAll("The vault properties are as expected",
+        () -> assertEquals(VAULT_ID, vault.getId()),
+        () -> assertEquals("Integration Test", vault.getName()),
+        () -> assertEquals("Java SDK Integration Tests", vault.getDescription()),
+        () -> assertTrue(vault.getCreatedAt().isBefore(Instant.now())));
+
+    List<Vault> noVaults = CLIENT.listVaults(Filter.name().equals("Nonexistent")).join();
+
+    assertEquals(0, noVaults.size());
+  }
+
+  @Test
   void shouldFailToReadUnknownVaultId() {
     CompletionException e = assertThrows(CompletionException.class,
         () -> CLIENT.getVault(LOGIN_ITEM_ID).join());
@@ -401,5 +439,12 @@ class IntegrationTest {
   @Test
   void shouldHeartbeat() {
     assertDoesNotThrow(() -> CLIENT.heartbeat().join());
+  }
+
+  @Test
+  void shouldGetMetrics() {
+    String metrics = CLIENT.metrics().join();
+
+    assertNotNull(metrics);
   }
 }

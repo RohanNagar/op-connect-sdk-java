@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 class OPConnectVaultClientTest {
@@ -25,37 +24,40 @@ class OPConnectVaultClientTest {
     OPConnectVaultClient vaultClient = new OPConnectVaultClient(client, "testId");
 
     vaultClient.getVault();
-    verify(client, times(1)).getVault(eq("testId"));
+    verify(client).getVault(eq("testId"));
 
     vaultClient.listItems();
-    verify(client, times(1)).listItems(eq("testId"));
+    verify(client).listItems(eq("testId"));
 
     vaultClient.listItems("filter");
-    verify(client, times(1)).listItems(eq("testId"), eq("filter"));
+    verify(client).listItems(eq("testId"), eq("filter"));
 
     vaultClient.listItems(Filter.title().present());
-    verify(client, times(1)).listItems(eq("testId"), eq("title pr"));
+    verify(client).listItems(eq("testId"), eq("title pr"));
 
     vaultClient.getItem("testItemId");
-    verify(client, times(1)).getItem(eq("testId"), eq("testItemId"));
+    verify(client).getItem(eq("testId"), eq("testItemId"));
 
     vaultClient.createItem(item);
-    verify(client, times(1))
-        .createItem(eq("testId"), same(item));
+    verify(client).createItem(eq("testId"), same(item));
 
     vaultClient.replaceItem("itemId", item);
-    verify(client, times(1))
-        .replaceItem(eq("testId"), eq("itemId"), same(item));
+    verify(client).replaceItem(eq("testId"), eq("itemId"), same(item));
 
     vaultClient.patchItem("itemId", Collections.singletonList(patch));
-    verify(client, times(1))
+    verify(client)
         .patchItem(eq("testId"), eq("itemId"), eq(Collections.singletonList(patch)));
 
     vaultClient.patchItem("itemId", patch);
-    verify(client, times(1))
-        .patchItem(eq("testId"), eq("itemId"), same(patch));
+    verify(client).patchItem(eq("testId"), eq("itemId"), same(patch));
 
     vaultClient.deleteItem("itemId");
-    verify(client, times(1)).deleteItem(eq("testId"), eq("itemId"));
+    verify(client).deleteItem(eq("testId"), eq("itemId"));
+
+    vaultClient.listFiles("itemId");
+    verify(client).listFiles(eq("testId"), eq("itemId"));
+
+    vaultClient.listFiles("itemId", true);
+    verify(client).listFiles(eq("testId"), eq("itemId"), eq(true));
   }
 }

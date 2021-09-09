@@ -61,6 +61,21 @@ client.listVaults().whenComplete((vaults, throwable) -> {
 });
 ```
 
+#### With a Filter
+
+```java
+List<Vault> vaults = client
+    .listVaults(Filter.name().contains("My Vault"))
+    .join();
+```
+
+```java
+client.listVaults(Filter.name().contains("My Vault"))
+    .whenComplete((vaults, throwable) -> {
+      // vaults variable contains the list of vaults
+    });
+```
+
 ### Get vault details
 
 ```java

@@ -12,9 +12,10 @@ public class Filter {
 
   Filter(Builder builder) {
     if (builder.operator.equals(Operator.PRESENT)) {
-      filter = "title pr";
+      filter = String.format("%s pr", builder.property);
     } else {
-      filter = String.format("title %s \"%s\"", builder.operator.getOpText(), builder.value);
+      filter = String.format("%s %s \"%s\"",
+          builder.property, builder.operator.getOpText(), builder.value);
     }
   }
 
@@ -85,12 +86,35 @@ public class Filter {
    * @return a new {@code Filter.Builder}
    */
   public static Builder title() {
-    return new Builder();
+    return new Builder("title");
+  }
+
+  /**
+   * Create a new name Filter builder.
+   *
+   * @return a new {@code Filter.Builder}
+   */
+  public static Builder name() {
+    return new Builder("name");
+  }
+
+  /**
+   * Create a new Filter builder on the given property.
+   *
+   * @return a new {@code Filter.Builder}
+   */
+  public static Builder onProperty(String property) {
+    return new Builder(property);
   }
 
   public static class Builder {
+    private final String property;
     private Operator operator;
     private String value;
+
+    private Builder(String property) {
+      this.property = property;
+    }
 
     Filter withOpAndValue(Operator op, String value) {
       this.operator = op;

@@ -36,6 +36,28 @@ public interface OPConnectClient {
   CompletableFuture<List<Vault>> listVaults();
 
   /**
+   * List the available vaults in 1Password, filtering based on the filter.
+   *
+   * @param filter an SCM-style filter to filter the results server-side
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with
+   *         the list of available vault objects
+   */
+  @GET("v1/vaults")
+  CompletableFuture<List<Vault>> listVaults(@Query("filter") String filter);
+
+  /**
+   * List the available vaults in 1Password, filtering based on the filter.
+   *
+   * @param filter the {@link Filter} to filter the results server-side
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with
+   *         the list of available vault objects
+   */
+  @GET("v1/vaults")
+  default CompletableFuture<List<Vault>> listVaults(Filter filter) {
+    return listVaults(filter.getFilter());
+  }
+
+  /**
    * Get the details of a specific vault.
    *
    * @param vaultUUID the id of the vault to retrieve
@@ -162,11 +184,30 @@ public interface OPConnectClient {
                                      @Path("itemId") String itemUUID);
 
 
+  /**
+   * List the files attached to the given item.
+   *
+   * @param vaultUUID the id of the vault
+   * @param itemUUID the id of the item to get files for
+   * @param inlineContent whether to include the base64 encoded file contents. The file size must
+   *                      be less than OP_MAX_INLINE_FILE_SIZE_KB, or 100 kilobytes if the file
+   *                      size isn't defined.
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         list of {@link File} objects
+   */
   @GET("/v1/vaults/{vaultId}/items/{itemId}/files")
   CompletableFuture<List<File>> listFiles(@Path("vaultId") String vaultUUID,
                                           @Path("itemId") String itemUUID,
                                           @Query("inline_content") boolean inlineContent);
 
+  /**
+   * List the files attached to the given item.
+   *
+   * @param vaultUUID the id of the vault
+   * @param itemUUID the id of the item to get files for
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with the
+   *         list of {@link File} objects
+   */
   @GET("/v1/vaults/{vaultId}/items/{itemId}/files")
   CompletableFuture<List<File>> listFiles(@Path("vaultId") String vaultUUID,
                                           @Path("itemId") String itemUUID);
@@ -222,6 +263,17 @@ public interface OPConnectClient {
    */
   @GET("heartbeat")
   CompletableFuture<Void> heartbeat();
+
+  /**
+   * Retrieves Prometheus metrics collected by the server.
+   *
+   * @return a {@link CompletableFuture} is returned immediately and eventually completed with
+   *         a plaintext list of Prometheus metrics. See the
+   *         <a href="https://prometheus.io/docs/instrumenting/exposition_formats/
+   *         #text-based-format">Prometheus documentation</a> for specifics.
+   */
+  @GET("metrics")
+  CompletableFuture<String> metrics();
 
   /**
    * Provides a convenient wrapper client that interacts with a specific vault.
