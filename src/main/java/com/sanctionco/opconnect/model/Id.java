@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class VaultId {
+public class Id {
   private final String id;
 
   @JsonCreator
-  public VaultId(@JsonProperty("id") String id) {
+  public Id(@JsonProperty("id") String id) {
     this.id = id;
   }
 
@@ -22,8 +22,8 @@ public class VaultId {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    VaultId vaultId = (VaultId) o;
-    return Objects.equals(id, vaultId.id);
+    Id id = (Id) o;
+    return Objects.equals(this.id, id.id);
   }
 
   @Override
@@ -33,7 +33,7 @@ public class VaultId {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", VaultId.class.getSimpleName() + "[", "]")
+    return new StringJoiner(", ", Id.class.getSimpleName() + "[", "]")
         .add("id='" + id + "'")
         .toString();
   }

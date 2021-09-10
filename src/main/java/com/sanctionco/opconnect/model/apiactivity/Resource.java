@@ -2,8 +2,7 @@ package com.sanctionco.opconnect.model.apiactivity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sanctionco.opconnect.model.ItemId;
-import com.sanctionco.opconnect.model.VaultId;
+import com.sanctionco.opconnect.model.Id;
 
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -13,18 +12,18 @@ import java.util.StringJoiner;
  */
 public class Resource {
   private final ResourceType type;
-  private final VaultId vault;
-  private final ItemId item;
+  private final Id vaultId;
+  private final Id itemId;
   private final Integer itemVersion;
 
   @JsonCreator
   Resource(@JsonProperty("type") ResourceType type,
-           @JsonProperty("vault") VaultId vault,
-           @JsonProperty("item") ItemId item,
+           @JsonProperty("vault") Id vaultId,
+           @JsonProperty("item") Id itemId,
            @JsonProperty("itemVersion") Integer itemVersion) {
     this.type = type;
-    this.vault = vault;
-    this.item = item;
+    this.vaultId = vaultId;
+    this.itemId = itemId;
     this.itemVersion = itemVersion;
   }
 
@@ -42,8 +41,8 @@ public class Resource {
    *
    * @return an object containing the ID of the vault requested
    */
-  public VaultId getVault() {
-    return vault;
+  public Id getVaultId() {
+    return vaultId;
   }
 
   /**
@@ -51,8 +50,8 @@ public class Resource {
    *
    * @return an object containing the ID of the item requested
    */
-  public ItemId getItem() {
-    return item;
+  public Id getItemId() {
+    return itemId;
   }
 
   /**
@@ -70,22 +69,22 @@ public class Resource {
     if (o == null || getClass() != o.getClass()) return false;
     Resource resource = (Resource) o;
     return type == resource.type
-        && Objects.equals(vault, resource.vault)
-        && Objects.equals(item, resource.item)
+        && Objects.equals(vaultId, resource.vaultId)
+        && Objects.equals(itemId, resource.itemId)
         && Objects.equals(itemVersion, resource.itemVersion);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, vault, item, itemVersion);
+    return Objects.hash(type, vaultId, itemId, itemVersion);
   }
 
   @Override
   public String toString() {
     return new StringJoiner(", ", Resource.class.getSimpleName() + "[", "]")
         .add("type=" + type)
-        .add("vault=" + vault)
-        .add("item=" + item)
+        .add("vaultId=" + vaultId)
+        .add("itemId=" + itemId)
         .add("itemVersion=" + itemVersion)
         .toString();
   }

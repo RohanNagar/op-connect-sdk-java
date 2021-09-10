@@ -1,5 +1,6 @@
 package com.sanctionco.opconnect.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.Instant;
@@ -15,7 +16,7 @@ import java.util.StringJoiner;
 public class Item {
   private final String id;
   private final String title;
-  private final VaultId vault;
+  private final Id vaultId;
   private final Category category;
   private final List<URL> urls;
   private final Boolean favorite;
@@ -32,7 +33,7 @@ public class Item {
   private Item(Builder builder) {
     this.id = builder.id;
     this.title = builder.title;
-    this.vault = builder.vaultId;
+    this.vaultId = builder.vaultId;
     this.category = builder.category;
     this.urls = builder.urls;
     this.favorite = builder.favorite;
@@ -66,12 +67,13 @@ public class Item {
   }
 
   /**
-   * Get the {@link VaultId} indicating the vault that this item belongs to.
+   * Get the vault {@link Id} indicating the vault that this item belongs to.
    *
    * @return the vault id that this item belongs to
    */
-  public VaultId getVault() {
-    return vault;
+  @JsonProperty("vault")
+  public Id getVaultId() {
+    return vaultId;
   }
 
   /**
@@ -128,26 +130,56 @@ public class Item {
     return trashed;
   }
 
+  /**
+   * Ge the {@link Instant} this item was created at.
+   *
+   * @return the time the item was created
+   */
   public Instant getCreatedAt() {
     return createdAt;
   }
 
+  /**
+   * Ge the {@link Instant} this item was last updated.
+   *
+   * @return the time the item was last updated
+   */
   public Instant getUpdatedAt() {
     return updatedAt;
   }
 
+  /**
+   * Get the ID of the actor that this item was last edited by.
+   *
+   * @return the id of the actor this item was last editied by
+   */
   public String getLastEditedBy() {
     return lastEditedBy;
   }
 
+  /**
+   * Get the list of sections contained in this item.
+   *
+   * @return the list of sections contained in this item
+   */
   public List<Section> getSections() {
     return sections;
   }
 
+  /**
+   * Get the list of fields contained in this item.
+   *
+   * @return the list of fields contained in this item
+   */
   public List<Field> getFields() {
     return fields;
   }
 
+  /**
+   * Get the list of files attached to this item.
+   *
+   * @return the list of files attached to this item
+   */
   public List<File> getFiles() {
     return files;
   }
@@ -170,7 +202,7 @@ public class Item {
     return new StringJoiner(", ", Item.class.getSimpleName() + "[", "]")
         .add("id='" + id + "'")
         .add("title='" + title + "'")
-        .add("vault=" + vault)
+        .add("vaultId=" + vaultId)
         .add("category=" + category)
         .add("urls=" + urls)
         .add("favorite=" + favorite)
@@ -200,7 +232,7 @@ public class Item {
   public static class Builder {
     private String id;
     private String title;
-    private VaultId vaultId;
+    private Id vaultId;
     private Category category;
     private List<URL> urls = new ArrayList<>();
     private Boolean favorite = false;
@@ -217,7 +249,7 @@ public class Item {
     public Builder fromItem(Item item) {
       this.id = item.id;
       this.title = item.title;
-      this.vaultId = item.vault;
+      this.vaultId = item.vaultId;
       this.category = item.category;
       this.urls = item.urls;
       this.favorite = item.favorite;
@@ -245,17 +277,18 @@ public class Item {
     }
 
     public Builder withVault(Vault vault) {
-      this.vaultId = new VaultId(vault.getId());
+      this.vaultId = new Id(vault.getId());
       return this;
     }
 
-    public Builder withVaultId(VaultId vaultId) {
+    @JsonProperty("vault")
+    public Builder withVaultId(Id vaultId) {
       this.vaultId = vaultId;
       return this;
     }
 
     public Builder withVaultId(String id) {
-      this.vaultId = new VaultId(id);
+      this.vaultId = new Id(id);
       return this;
     }
 

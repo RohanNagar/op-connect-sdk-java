@@ -148,7 +148,7 @@ class IntegrationTest {
 
     // CATEGORY_COUNT sample items, each of a different category
     assertEquals(CATEGORY_COUNT, items.size());
-    items.forEach(item -> assertEquals(VAULT_ID, item.getVault().getId()));
+    items.forEach(item -> assertEquals(VAULT_ID, item.getVaultId().getId()));
 
     Set<Category> categories = items.stream().map(Item::getCategory).collect(Collectors.toSet());
 

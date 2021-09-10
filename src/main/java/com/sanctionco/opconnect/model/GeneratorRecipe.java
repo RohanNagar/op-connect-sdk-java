@@ -135,6 +135,9 @@ public class GeneratorRecipe {
         .toString();
   }
 
+  /**
+   * The builder class used to build a new {@link GeneratorRecipe}.
+   */
   public static class Builder {
     private final List<CharacterSet> characters;
 

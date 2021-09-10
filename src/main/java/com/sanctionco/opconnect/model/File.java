@@ -56,21 +56,43 @@ public class File {
     return size;
   }
 
+  /**
+   * Get the URL path that the content of the file can be accessed at.
+   *
+   * @return the path to get the content
+   */
   @JsonProperty("content_path")
   public String getContentPath() {
     return contentPath;
   }
 
+  /**
+   * Get the Base64-encoded content of this file, if {@code inlineContent} was set to true
+   * when getting the file details.
+   *
+   * @return the base64-encoded content of the file if requested, or null if not
+   */
   public String getContent() {
     return content;
   }
 
+  /**
+   * Get the decoded plaintext content of this file, if {@code inlineContent} was set to true
+   * when getting the file details.
+   *
+   * @return the plaintext content of the file if requested, or null if not
+   */
   public String getDecodedContent() {
     return content == null
         ? null
         : new String(Base64.getDecoder().decode(content), StandardCharsets.UTF_8);
   }
 
+  /**
+   * Get the {@link Section} that this file belongs to within its {@link Item}.
+   *
+   * @return the section that the file belongs to
+   */
   public Section getSection() {
     return section;
   }
