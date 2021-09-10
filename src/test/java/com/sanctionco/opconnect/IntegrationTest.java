@@ -5,6 +5,7 @@ import com.sanctionco.opconnect.model.Field;
 import com.sanctionco.opconnect.model.File;
 import com.sanctionco.opconnect.model.Filter;
 import com.sanctionco.opconnect.model.GeneratorRecipe;
+import com.sanctionco.opconnect.model.Id;
 import com.sanctionco.opconnect.model.Item;
 import com.sanctionco.opconnect.model.Patch;
 import com.sanctionco.opconnect.model.Purpose;
@@ -13,6 +14,7 @@ import com.sanctionco.opconnect.model.Type;
 import com.sanctionco.opconnect.model.URL;
 import com.sanctionco.opconnect.model.Vault;
 import com.sanctionco.opconnect.model.apiactivity.APIRequest;
+import com.sanctionco.opconnect.model.apiactivity.APIRequestResult;
 import com.sanctionco.opconnect.model.health.ConnectServer;
 
 import java.time.Instant;
@@ -421,7 +423,9 @@ class IntegrationTest {
         () -> assertNotNull(requests),
         () -> assertNotEquals(0, requests.size()),
         () -> assertEquals("HJGVEL46XVGGJFJQXYCADPF5RM", requests.get(0).getActor().getId()),
-        () -> assertEquals("5R6XDPQ2B5GW3GLDTNKVH7BN6E", requests.get(0).getActor().getAccount()));
+        () -> assertEquals("5R6XDPQ2B5GW3GLDTNKVH7BN6E", requests.get(0).getActor().getAccount()),
+        () -> assertEquals(APIRequestResult.SUCCESS, requests.get(0).getResult()),
+        () -> assertEquals(new Id(VAULT_ID), requests.get(0).getResource().getVaultId()));
 
     // Limit to last 5
     List<APIRequest> limitedRequests = CLIENT.listAPIActivity(5).join();
