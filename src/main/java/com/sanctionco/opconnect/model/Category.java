@@ -103,6 +103,8 @@ public enum Category {
 
   /**
    * The custom category, used as the default for any unknown category.
+   *
+   * <p>Note that you cannot create an item using the {@code CUSTOM} category.
    */
   @JsonEnumDefaultValue
   CUSTOM

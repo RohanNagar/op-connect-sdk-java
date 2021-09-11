@@ -6,6 +6,11 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Represents a Vault in 1Password. See the
+ * <a href="https://support.1password.com/connect-api-reference/#vault-object">documentation</a>
+ * for more details.
+ */
 @JsonDeserialize(builder = Vault.Builder.class)
 public class Vault {
   private final String id;
@@ -18,7 +23,7 @@ public class Vault {
   private final Instant createdAt;
   private final Instant updatedAt;
 
-  public Vault(Builder builder) {
+  Vault(Builder builder) {
     this.id = builder.id;
     this.name = builder.name;
     this.description = builder.description;
@@ -30,38 +35,85 @@ public class Vault {
     this.updatedAt = builder.updatedAt;
   }
 
+  /**
+   * Get the ID of the vault.
+   *
+   * @return the ID of the vault
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Get the name of the vault.
+   *
+   * @return the name of the vault
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Get the description of the vault.
+   *
+   * @return the description of the vault
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Get the version of the vault metadata.
+   *
+   * @return the version of the vault metadata
+   */
   public Integer getAttributeVersion() {
     return attributeVersion;
   }
 
+  /**
+   * Get the version of the vault contents.
+   *
+   * @return the version of the vault contents
+   */
   public Integer getContentVersion() {
     return contentVersion;
   }
 
+  /**
+   * Get the number of active items in the vault.
+   *
+   * @return the number of active items in the vault
+   */
   public Integer getItems() {
     return items;
   }
 
+  /**
+   * The type of vault. One of {@code EVERYONE} (the team shared vault), {@code PERSONAL}
+   * (the private vault for the Connect server), or {@code USER_CREATED} (a vault created
+   * by a user).
+   *
+   * @return the type of the vault
+   */
   public String getType() {
     return type;
   }
 
+  /**
+   * Get the {@link Instant} that the vault was created.
+   *
+   * @return the time that the vault was created
+   */
   public Instant getCreatedAt() {
     return createdAt;
   }
 
+  /**
+   * Get the {@link Instant} that the vault was last updated.
+   *
+   * @return the time that the vault was last updated
+   */
   public Instant getUpdatedAt() {
     return updatedAt;
   }

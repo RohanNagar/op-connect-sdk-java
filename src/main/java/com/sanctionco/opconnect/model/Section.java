@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+/**
+ * Represents a section within an {@link Item}.
+ */
 public class Section {
   private final String id;
   private final String label;
@@ -17,10 +20,20 @@ public class Section {
     this.label = label;
   }
 
+  /**
+   * Get the ID of this section.
+   *
+   * @return the ID of this section
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Get the label of this section.
+   *
+   * @return the label of this section
+   */
   public String getLabel() {
     return label;
   }
