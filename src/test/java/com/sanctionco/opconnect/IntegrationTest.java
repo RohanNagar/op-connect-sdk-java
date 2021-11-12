@@ -230,10 +230,10 @@ class IntegrationTest {
         () -> assertTrue(item.getFavorite()),
         () -> assertEquals(2, item.getTags().size()),
         () -> assertFalse(item.getTrashed()),
-        () -> assertEquals(2, item.getSections().size()),
+        () -> assertEquals(4, item.getSections().size()),
         () -> assertTrue(item.getSections().contains(
             new Section("Section_vdb57dmcdx6mej4wpu632j6pru", "Test Section One"))),
-        () -> assertEquals(5, item.getFields().size())
+        () -> assertEquals(6, item.getFields().size())
     );
   }
 

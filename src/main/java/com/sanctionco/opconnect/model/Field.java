@@ -19,6 +19,8 @@ public class Field {
   private final GeneratorRecipe recipe;
   private final Section section;
   private final Double entropy;
+  private final PasswordDetails passwordDetails;
+  private final String totp;
 
   private Field(Builder builder) {
     this.id = builder.id;
@@ -30,6 +32,8 @@ public class Field {
     this.recipe = builder.recipe;
     this.section = builder.section;
     this.entropy = builder.entropy;
+    this.passwordDetails = builder.passwordDetails;
+    this.totp = builder.totp;
   }
 
   /**
@@ -117,6 +121,24 @@ public class Field {
     return entropy;
   }
 
+  /**
+   * Get the password details for this field if it is a password field.
+   *
+   * @return the password details for this field if it is a password field, or null otherwise
+   */
+  public PasswordDetails getPasswordDetails() {
+    return passwordDetails;
+  }
+
+  /**
+   * Get the TOTP value for this field if it is an OTP field.
+   *
+   * @return the current TOTP value for this field if it is an OTP field, or null otherwise
+   */
+  public String getTotp() {
+    return totp;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -142,6 +164,8 @@ public class Field {
         .add("recipe=" + recipe)
         .add("section=" + section)
         .add("entropy=" + entropy)
+        .add("passwordDetails=" + passwordDetails)
+        .add("totp=" + totp)
         .toString();
   }
 
@@ -227,6 +251,8 @@ public class Field {
     private GeneratorRecipe recipe;
     private Section section;
     private Double entropy;
+    private PasswordDetails passwordDetails;
+    private String totp;
 
     /**
      * Set the ID of the field.
@@ -333,6 +359,28 @@ public class Field {
      */
     public Builder withEntropy(Double entropy) {
       this.entropy = entropy;
+      return this;
+    }
+
+    /**
+     * Set the {@link PasswordDetails} when this field is a password field.
+     *
+     * @param passwordDetails the password details
+     * @return this
+     */
+    public Builder withPasswordDetails(PasswordDetails passwordDetails) {
+      this.passwordDetails = passwordDetails;
+      return this;
+    }
+
+    /**
+     * Set the current TOTP value when this field is an OTP type field.
+     *
+     * @param totp the current TOTP value
+     * @return this
+     */
+    public Builder withTotp(String totp) {
+      this.totp = totp;
       return this;
     }
 
