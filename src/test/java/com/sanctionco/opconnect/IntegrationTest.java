@@ -201,7 +201,7 @@ class IntegrationTest {
     assertEquals(2, passwordAndCreditCard.size());
 
     List<Item> noItems = CLIENT
-        .listItems(VAULT_ID,Filter.title().equals("Not Exist")).join();
+        .listItems(VAULT_ID, Filter.title().equals("Not Exist")).join();
     assertEquals(0, noItems.size());
   }
 
