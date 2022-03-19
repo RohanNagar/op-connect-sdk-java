@@ -153,6 +153,7 @@ public class Item {
    *
    * @return the id of the actor this item was last editied by
    */
+  @JsonProperty("last_edited_by")
   public String getLastEditedBy() {
     return lastEditedBy;
   }
@@ -342,6 +343,7 @@ public class Item {
       return this;
     }
 
+    @JsonProperty("last_edited_by")
     public Builder withLastEditedBy(String lastEditedBy) {
       this.lastEditedBy = lastEditedBy;
       return this;
