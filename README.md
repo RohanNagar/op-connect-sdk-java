@@ -9,7 +9,7 @@
 
 An unofficial SDK for interacting with the
 [1Password Connect API](https://support.1password.com/connect-api-reference).
-Tested with the latest version of the 1Password Connect Server (v1.3.1).
+Tested with the latest version of the 1Password Connect Server (v1.5.1).
 
 **NOTE: Until version 1.0.0, any new release may contain breaking changes!**
 
@@ -24,7 +24,7 @@ Add this library as a dependency in your `pom.xml`:
 <dependency>
   <groupId>com.sanctionco.opconnect</groupId>
   <artifactId>opconnect-java</artifactId>
-  <version>0.5.1</version>
+  <version>0.5.2</version>
 </dependency>
 ```
 
