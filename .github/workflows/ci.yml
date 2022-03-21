@@ -47,3 +47,6 @@ jobs:
       uses: codecov/codecov-action@v2.1.0
       with:
         directory: .
+
+    - name: Get OPConnect Server logs
+      run: sudo docker-compose -f local-connect/docker-compose.yaml logs

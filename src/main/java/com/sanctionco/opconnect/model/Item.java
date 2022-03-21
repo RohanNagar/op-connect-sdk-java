@@ -1,5 +1,6 @@
 package com.sanctionco.opconnect.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -135,6 +136,7 @@ public class Item {
    *
    * @return the time the item was created
    */
+  @JsonProperty("created_at")
   public Instant getCreatedAt() {
     return createdAt;
   }
@@ -144,6 +146,7 @@ public class Item {
    *
    * @return the time the item was last updated
    */
+  @JsonProperty("updated_at")
   public Instant getUpdatedAt() {
     return updatedAt;
   }
@@ -333,17 +336,22 @@ public class Item {
       return this;
     }
 
+    @JsonProperty("created_at")
+    @JsonAlias("createdAt")
     public Builder withCreatedAt(Instant createdAt) {
       this.createdAt = createdAt;
       return this;
     }
 
+    @JsonProperty("updated_at")
+    @JsonAlias("updatedAt")
     public Builder withUpdatedAt(Instant updatedAt) {
       this.updatedAt = updatedAt;
       return this;
     }
 
     @JsonProperty("last_edited_by")
+    @JsonAlias("lastEditedBy")
     public Builder withLastEditedBy(String lastEditedBy) {
       this.lastEditedBy = lastEditedBy;
       return this;

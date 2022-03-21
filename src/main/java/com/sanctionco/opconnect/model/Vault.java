@@ -1,5 +1,7 @@
 package com.sanctionco.opconnect.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.Instant;
@@ -67,6 +69,7 @@ public class Vault {
    *
    * @return the version of the vault metadata
    */
+  @JsonProperty("attribute_version")
   public Integer getAttributeVersion() {
     return attributeVersion;
   }
@@ -76,6 +79,7 @@ public class Vault {
    *
    * @return the version of the vault contents
    */
+  @JsonProperty("content_version")
   public Integer getContentVersion() {
     return contentVersion;
   }
@@ -105,6 +109,7 @@ public class Vault {
    *
    * @return the time that the vault was created
    */
+  @JsonProperty("created_at")
   public Instant getCreatedAt() {
     return createdAt;
   }
@@ -114,6 +119,7 @@ public class Vault {
    *
    * @return the time that the vault was last updated
    */
+  @JsonProperty("updated_at")
   public Instant getUpdatedAt() {
     return updatedAt;
   }
@@ -176,11 +182,15 @@ public class Vault {
       return this;
     }
 
+    @JsonProperty("attribute_version")
+    @JsonAlias("attributeVersion")
     public Builder withAttributeVersion(Integer attributeVersion) {
       this.attributeVersion = attributeVersion;
       return this;
     }
 
+    @JsonProperty("content_version")
+    @JsonAlias("contentVersion")
     public Builder withContentVersion(Integer contentVersion) {
       this.contentVersion = contentVersion;
       return this;
@@ -196,11 +206,15 @@ public class Vault {
       return this;
     }
 
+    @JsonProperty("created_at")
+    @JsonAlias("createdAt")
     public Builder withCreatedAt(Instant createdAt) {
       this.createdAt = createdAt;
       return this;
     }
 
+    @JsonProperty("updated_at")
+    @JsonAlias("updatedAt")
     public Builder withUpdatedAt(Instant updatedAt) {
       this.updatedAt = updatedAt;
       return this;

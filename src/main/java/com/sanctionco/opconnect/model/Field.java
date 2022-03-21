@@ -1,5 +1,7 @@
 package com.sanctionco.opconnect.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Objects;
@@ -126,6 +128,7 @@ public class Field {
    *
    * @return the password details for this field if it is a password field, or null otherwise
    */
+  @JsonProperty("password_details")
   public PasswordDetails getPasswordDetails() {
     return passwordDetails;
   }
@@ -368,6 +371,8 @@ public class Field {
      * @param passwordDetails the password details
      * @return this
      */
+    @JsonProperty("password_details")
+    @JsonAlias("passwordDetails")
     public Builder withPasswordDetails(PasswordDetails passwordDetails) {
       this.passwordDetails = passwordDetails;
       return this;
