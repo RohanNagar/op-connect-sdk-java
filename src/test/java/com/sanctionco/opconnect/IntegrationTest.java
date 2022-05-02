@@ -425,7 +425,7 @@ class IntegrationTest {
         () -> assertEquals("HJGVEL46XVGGJFJQXYCADPF5RM", requests.get(0).getActor().getId()),
         () -> assertEquals("5R6XDPQ2B5GW3GLDTNKVH7BN6E", requests.get(0).getActor().getAccount()),
         () -> assertEquals(APIRequestResult.SUCCESS, requests.get(0).getResult()),
-        () -> assertEquals(new Id(VAULT_ID), requests.get(0).getResource().getVaultId()));
+        () -> assertEquals(new Id(VAULT_ID, ""), requests.get(0).getResource().getVaultId()));
 
     // Limit to last 5
     List<APIRequest> limitedRequests = CLIENT.listAPIActivity(5).join();

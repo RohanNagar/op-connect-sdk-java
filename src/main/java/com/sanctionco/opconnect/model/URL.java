@@ -10,14 +10,26 @@ import java.util.StringJoiner;
  * Represents a URL contained in an item.
  */
 public class URL {
+  private final String label;
   private final String url;
   private final Boolean primary;
 
   @JsonCreator
-  URL(@JsonProperty("href") String url,
+  URL(@JsonProperty("label") String label,
+      @JsonProperty("href") String url,
       @JsonProperty("primary") Boolean primary) {
+    this.label = label;
     this.url = url;
     this.primary = primary;
+  }
+
+  /**
+   * Get the label associated with this URL.
+   *
+   * @return the label of the URL
+   */
+  public String getLabel() {
+    return label;
   }
 
   /**
@@ -44,17 +56,20 @@ public class URL {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     URL url1 = (URL) o;
-    return Objects.equals(url, url1.url) && Objects.equals(primary, url1.primary);
+    return Objects.equals(url, url1.url)
+        && Objects.equals(primary, url1.primary)
+        && Objects.equals(label, url1.label);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url, primary);
+    return Objects.hash(label, url, primary);
   }
 
   @Override
   public String toString() {
     return new StringJoiner(", ", URL.class.getSimpleName() + "[", "]")
+        .add("label='" + label + "'")
         .add("url='" + url + "'")
         .add("primary=" + primary)
         .toString();
@@ -67,7 +82,7 @@ public class URL {
    * @return a new instance of {@code URL}
    */
   public static URL primary(String url) {
-    return new URL(url, true);
+    return new URL("", url, true);
   }
 
   /**
@@ -77,6 +92,6 @@ public class URL {
    * @return a new instance of {@code URL}
    */
   public static URL standard(String url) {
-    return new URL(url, false);
+    return new URL("", url, false);
   }
 }

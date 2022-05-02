@@ -30,6 +30,7 @@ public class Item {
   private final List<Section> sections;
   private final List<Field> fields;
   private final List<File> files;
+  private final String additionalInformation;
 
   private Item(Builder builder) {
     this.id = builder.id;
@@ -47,6 +48,7 @@ public class Item {
     this.sections = builder.sections;
     this.fields = builder.fields;
     this.files = builder.files;
+    this.additionalInformation = builder.additionalInformation;
   }
 
   /**
@@ -188,6 +190,16 @@ public class Item {
     return files;
   }
 
+  /**
+   * Get any additional information for this item.
+   *
+   * @return the item's additional information
+   */
+  @JsonProperty("additional_information")
+  public String getAdditionalInformation() {
+    return additionalInformation;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -218,6 +230,8 @@ public class Item {
         .add("lastEditedBy='" + lastEditedBy + "'")
         .add("sections=" + sections)
         .add("fields=" + fields)
+        .add("files=" + files)
+        .add("additionalInformation='" + additionalInformation + "'")
         .toString();
   }
 
@@ -249,6 +263,7 @@ public class Item {
     private List<Section> sections = new ArrayList<>();
     private List<Field> fields = new ArrayList<>();
     private List<File> files = new ArrayList<>();
+    private String additionalInformation;
 
     public Builder fromItem(Item item) {
       this.id = item.id;
@@ -266,6 +281,7 @@ public class Item {
       this.sections = item.sections;
       this.fields = item.fields;
       this.files = item.files;
+      this.additionalInformation = item.additionalInformation;
 
       return this;
     }
@@ -281,7 +297,7 @@ public class Item {
     }
 
     public Builder withVault(Vault vault) {
-      this.vaultId = new Id(vault.getId());
+      this.vaultId = new Id(vault.getId(), "");
       return this;
     }
 
@@ -292,7 +308,7 @@ public class Item {
     }
 
     public Builder withVaultId(String id) {
-      this.vaultId = new Id(id);
+      this.vaultId = new Id(id, "");
       return this;
     }
 
@@ -384,6 +400,12 @@ public class Item {
 
     public Builder withFile(File file) {
       this.files.add(file);
+      return this;
+    }
+
+    @JsonProperty("additional_information")
+    public Builder withAdditionalInformation(String additionalInformation) {
+      this.additionalInformation = additionalInformation;
       return this;
     }
 
