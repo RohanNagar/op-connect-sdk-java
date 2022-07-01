@@ -404,6 +404,7 @@ public class Item {
     }
 
     @JsonProperty("additional_information")
+    @JsonAlias("additionalInformation")
     public Builder withAdditionalInformation(String additionalInformation) {
       this.additionalInformation = additionalInformation;
       return this;
