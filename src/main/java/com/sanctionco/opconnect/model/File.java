@@ -1,5 +1,6 @@
 package com.sanctionco.opconnect.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -150,6 +151,7 @@ public class File {
     }
 
     @JsonProperty("content_path")
+    @JsonAlias("contentPath")
     public Builder withContentPath(String contentPath) {
       this.contentPath = contentPath;
       return this;
