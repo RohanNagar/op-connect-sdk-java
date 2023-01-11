@@ -54,7 +54,7 @@
 
     <!-- Dependency versions -->
     <junit.version>5.9.1</junit.version>
-    <junit.platform.version>1.9.1</junit.platform.version>
+    <junit.platform.version>1.9.2</junit.platform.version>
     <retrofit.version>2.9.0</retrofit.version>
   </properties>
 
