@@ -1,6 +1,6 @@
 # 1Password Connect Java SDK
 
-<a href="https://search.maven.org/artifact/com.sanctionco.opconnect/opconnect-java">
+<a href="https://central.sonatype.com/artifact/com.sanctionco.opconnect/opconnect-java/0.5.3">
   <img src="https://img.shields.io/maven-central/v/com.sanctionco.opconnect/opconnect-java.svg?colorB=brightgreen&label=maven%20central" alt="Maven Central">
 </a>
 <a href="http://javadoc.io/doc/com.sanctionco.opconnect/opconnect-java">
@@ -9,7 +9,7 @@
 
 An unofficial SDK for interacting with the
 [1Password Connect API](https://support.1password.com/connect-api-reference).
-Tested with the latest version of the 1Password Connect Server (v1.5.1).
+Tested with the latest version of the 1Password Connect Server (v1.5.2).
 
 **NOTE: Until version 1.0.0, any new release may contain breaking changes!**
 
@@ -24,7 +24,7 @@ Add this library as a dependency in your `pom.xml`:
 <dependency>
   <groupId>com.sanctionco.opconnect</groupId>
   <artifactId>opconnect-java</artifactId>
-  <version>0.5.2</version>
+  <version>0.5.3</version>
 </dependency>
 ```
 
