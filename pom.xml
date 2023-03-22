@@ -181,6 +181,7 @@
         <artifactId>maven-release-plugin</artifactId>
         <version>${release-plugin.version}</version>
         <configuration>
+          <releaseProfiles>release-sign-artifacts</releaseProfiles>
           <tagNameFormat>v@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
@@ -272,12 +273,6 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
       <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-runner</artifactId>
-      <version>${junit.platform.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
