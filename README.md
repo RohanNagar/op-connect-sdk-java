@@ -9,7 +9,7 @@
 
 An unofficial SDK for interacting with the
 [1Password Connect API](https://support.1password.com/connect-api-reference).
-Tested with the latest version of the 1Password Connect Server (v1.5.2).
+Tested with the latest version of the 1Password Connect Server (v1.6).
 
 **NOTE: Until version 1.0.0, any new release may contain breaking changes!**
 
