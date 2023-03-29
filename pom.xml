@@ -53,8 +53,10 @@
     <surefire.version>3.0.0</surefire.version>
 
     <!-- Dependency versions -->
+    <jackson.version>2.14.2</jackson.version>
     <junit.version>5.9.2</junit.version>
     <junit.platform.version>1.9.2</junit.platform.version>
+    <mockito.version>4.11.0</mockito.version>
     <retrofit.version>2.9.0</retrofit.version>
   </properties>
 
@@ -246,7 +248,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>2.14.2</version>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.squareup.retrofit2</groupId>
@@ -278,7 +280,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.2.0</version>
+      <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

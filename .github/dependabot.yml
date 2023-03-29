@@ -6,6 +6,9 @@ updates:
     interval: daily
     time: "09:00"
   open-pull-requests-limit: 10
+  ignore:
+    - dependency-name: "org.mockito:mockito-core"
+      update-types: [ "version-update:semver-major" ]
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
