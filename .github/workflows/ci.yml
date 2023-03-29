@@ -26,7 +26,8 @@ jobs:
       env:
         OP_CREDENTIALS: ${{ secrets.OP_CREDENTIALS }}
 
-    - name: Set up env file
+    # First we test with the latest OPConnect Docker images
+    - name: Set up env file (latest)
       run: echo OP_IMAGE_VER=$OP_IMAGE_VER > local-connect/.env
       env:
         OP_IMAGE_VER: 'latest'
@@ -46,6 +47,40 @@ jobs:
 
     - name: Get OPConnect Server logs
       run: sudo docker-compose -f local-connect/docker-compose.yaml logs
+
+    - name: Stop OPConnect Server
+      run: sudo docker-compose -f local-connect/docker-compose.yaml down
+
+    # Then test with older versions
+    # TODO: use reusable workflows https://docs.github.com/en/actions/using-workflows/reusing-workflows
+    - name: Set up env file (1.5)
+      run: echo OP_IMAGE_VER=$OP_IMAGE_VER > local-connect/.env
+      env:
+        OP_IMAGE_VER: '1.5'
+
+    - name: Start OPConnect Server
+      run: sudo docker-compose -f local-connect/docker-compose.yaml up -d
+
+    - name: Test
+      run: mvn clean test
+      env:
+        OP_ACCESS_TOKEN: ${{ secrets.OP_ACCESS_TOKEN }}
+
+    - name: Stop OPConnect Server
+      run: sudo docker-compose -f local-connect/docker-compose.yaml down
+
+    - name: Set up env file (1.4)
+      run: echo OP_IMAGE_VER=$OP_IMAGE_VER > local-connect/.env
+      env:
+        OP_IMAGE_VER: '1.4'
+
+    - name: Start OPConnect Server
+      run: sudo docker-compose -f local-connect/docker-compose.yaml up -d
+
+    - name: Test
+      run: mvn clean test
+      env:
+        OP_ACCESS_TOKEN: ${{ secrets.OP_ACCESS_TOKEN }}
 
     - name: Stop OPConnect Server
       run: sudo docker-compose -f local-connect/docker-compose.yaml down
