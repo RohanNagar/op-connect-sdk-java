@@ -38,7 +38,7 @@ jobs:
     - name: Start OPConnect Server
       run: sudo docker-compose -f local-connect/docker-compose.yaml up -d
       env:
-        OP_IMAGE_VER: latest
+        OP_IMAGE_VER: 'latest'
 
     - name: Build with Maven
       run: mvn package jacoco:report
