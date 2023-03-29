@@ -102,6 +102,16 @@ public enum Category {
   API_CREDENTIAL,
 
   /**
+   * The medical record category.
+   */
+  MEDICAL_RECORD,
+
+  /**
+   * The SSH key category.
+   */
+  SSH_KEY,
+
+  /**
    * The custom category, used as the default for any unknown category.
    *
    * <p>Note that you cannot create an item using the {@code CUSTOM} category.

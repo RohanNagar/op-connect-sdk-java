@@ -320,8 +320,8 @@ class IntegrationTest {
   void shouldPatchItem() throws Exception {
     if (createdItemId == null) fail("The createItem test needs to run before patchItem");
 
-    // Wait for .75 second in order to make sure the created item exists
-    Thread.sleep(750L);
+    // Wait for 1 second in order to make sure the created item exists
+    Thread.sleep(1000);
 
     // Get the item first
     Item created = CLIENT.getItem(VAULT_ID, createdItemId).join();
