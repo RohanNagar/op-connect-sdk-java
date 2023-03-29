@@ -46,3 +46,6 @@ jobs:
 
     - name: Get OPConnect Server logs
       run: sudo docker-compose -f local-connect/docker-compose.yaml logs
+
+    - name: Stop OPConnect Server
+      run: sudo docker-compose -f local-connect/docker-compose.yaml down
