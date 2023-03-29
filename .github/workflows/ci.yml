@@ -11,11 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        connect-version:
-          - latest
-          - 1.5
 
     steps:
     - uses: actions/checkout@v3
@@ -34,7 +29,7 @@ jobs:
     - name: Set up env file
       run: echo OP_IMAGE_VER=$OP_IMAGE_VER > local-connect/.env
       env:
-        OP_IMAGE_VER: ${{ matrix.connect-version }}
+        OP_IMAGE_VER: 'latest'
 
     - name: Start OPConnect Server
       run: sudo docker-compose -f local-connect/docker-compose.yaml up -d
@@ -45,7 +40,6 @@ jobs:
         OP_ACCESS_TOKEN: ${{ secrets.OP_ACCESS_TOKEN }}
 
     - name: Upload Codecov report
-      if: ${{ matrix.connect-version }} == 'latest'
       uses: codecov/codecov-action@v3
       with:
         directory: .
