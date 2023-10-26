@@ -94,14 +94,18 @@ public class OPConnectClientBuilder {
     mapper.configOverride(String.class)
         .setSetterInfo(JsonSetter.Value.forValueNulls(Nulls.AS_EMPTY));
 
+    OkHttpClient httpClient = buildHttpClient(this.accessToken);
+
     Retrofit retrofit = new Retrofit.Builder()
         .baseUrl(this.endpoint)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(JacksonConverterFactory.create(mapper))
-        .client(buildHttpClient(this.accessToken))
+        .client(httpClient)
         .build();
 
-    return retrofit.create(OPConnectClient.class);
+    RetrofitOPConnectClient retrofitClient = retrofit.create(RetrofitOPConnectClient.class);
+
+    return new OPConnectClient(retrofitClient, httpClient);
   }
 
   private OkHttpClient buildHttpClient(String accessToken) {
