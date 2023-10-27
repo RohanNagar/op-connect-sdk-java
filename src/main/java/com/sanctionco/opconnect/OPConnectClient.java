@@ -362,7 +362,7 @@ public class OPConnectClient {
    *
    * @return the new builder instance
    */
-  static OPConnectClientBuilder builder() {
+  public static OPConnectClientBuilder builder() {
     return OPConnectClientBuilder.builder();
   }
 }
