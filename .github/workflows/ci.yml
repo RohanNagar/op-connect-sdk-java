@@ -41,7 +41,7 @@ jobs:
         OP_ACCESS_TOKEN: ${{ secrets.OP_ACCESS_TOKEN }}
 
     - name: Upload Codecov report
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         directory: .
 
