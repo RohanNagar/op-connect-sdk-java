@@ -57,7 +57,7 @@
     <junit.version>5.10.2</junit.version>
     <junit.platform.version>1.9.2</junit.platform.version>
     <mockito.version>4.11.0</mockito.version>
-    <retrofit.version>2.10.0</retrofit.version>
+    <retrofit.version>2.11.0</retrofit.version>
   </properties>
 
   <!-- Specify releases to Maven Central -->
