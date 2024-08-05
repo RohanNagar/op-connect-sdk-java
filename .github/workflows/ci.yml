@@ -33,7 +33,7 @@ jobs:
         OP_IMAGE_VER: 'latest'
 
     - name: Start OPConnect Server
-      run: sudo docker-compose -f local-connect/docker-compose.yaml up -d
+      run: sudo docker compose -f local-connect/docker-compose.yaml up -d
 
     - name: Build with Maven
       run: mvn package jacoco:report
@@ -46,10 +46,10 @@ jobs:
         directory: .
 
     - name: Get OPConnect Server logs
-      run: sudo docker-compose -f local-connect/docker-compose.yaml logs
+      run: sudo docker compose -f local-connect/docker-compose.yaml logs
 
     - name: Stop OPConnect Server
-      run: sudo docker-compose -f local-connect/docker-compose.yaml down
+      run: sudo docker compose -f local-connect/docker-compose.yaml down
 
     # Then test with older versions
     # TODO: use reusable workflows https://docs.github.com/en/actions/using-workflows/reusing-workflows
