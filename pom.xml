@@ -53,7 +53,7 @@
     <surefire.version>3.5.3</surefire.version>
 
     <!-- Dependency versions -->
-    <jackson.version>2.18.3</jackson.version>
+    <jackson.version>2.19.0</jackson.version>
     <junit.version>5.12.2</junit.version>
     <junit.platform.version>1.9.2</junit.platform.version>
     <mockito.version>5.17.0</mockito.version>
