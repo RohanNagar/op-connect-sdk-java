@@ -42,7 +42,7 @@
 
     <!-- Plugin versions -->
     <central-publishing-plugin.version>0.9.0</central-publishing-plugin.version>
-    <checkstyle.version>10.26.1</checkstyle.version>
+    <checkstyle.version>12.0.1</checkstyle.version>
     <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
     <compiler-plugin.version>3.14.1</compiler-plugin.version>
     <gpg-plugin.version>3.2.8</gpg-plugin.version>
