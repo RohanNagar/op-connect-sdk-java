@@ -54,7 +54,7 @@
 
     <!-- Dependency versions -->
     <jackson.version>2.21.1</jackson.version>
-    <junit.version>5.13.4</junit.version>
+    <junit.version>6.0.3</junit.version>
     <junit.platform.version>1.9.2</junit.platform.version>
     <mockito.version>5.21.0</mockito.version>
     <retrofit.version>3.0.0</retrofit.version>
